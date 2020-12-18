@@ -12,7 +12,11 @@ public class PocApplication {
    static Logger logger = LoggerFactory.getLogger(PocApplication.class);
 
    public static void main(String[] args) {
-      logger.debug("Launch poc application");
-      SpringApplication.run(PocApplication.class, args);
+	  try {
+	      SpringApplication.run(PocApplication.class, args);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
    }
 }

@@ -14,17 +14,13 @@
 	<groupId>com.example</groupId>
 	<artifactId>poc</artifactId>
 
-	<!-- 
-	0.0.1 : add mysql storage and addPerson operation 
-	0.0.2 : add mysql storage and addPerson operation 
-	0.0.3 : add unicity control / add update/deletePerson / addFileUpload 
-	0.0.4 : add logger and spring profile 0.0.5 : configure logs for prod 
-	0.0.6 : deploy configuration and add CRUD for continent 
-	0.0.7 : deploy with country 
-	0.0.8 : add city management
-	-->
+	<!-- 0.0.1 : add mysql storage and addPerson operation 0.0.2 : add mysql 
+		storage and addPerson operation 0.0.3 : add unicity control / add update/deletePerson 
+		/ addFileUpload 0.0.4 : add logger and spring profile 0.0.5 : configure logs 
+		for prod 0.0.6 : deploy configuration and add CRUD for continent 0.0.7 : 
+		deploy with country 0.0.8 : add city management 0.0.9 : add person management -->
 
-	<version>0.0.8</version>
+	<version>0.0.9</version>
 	<name>poc</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -137,15 +133,34 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<!--  <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<argLine>-Dfile.encoding=UTF-8</argLine>
 				</configuration>
+			</plugin>-->
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!-- attached to Maven test phase -->
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-
-
 
 		</plugins>
 
@@ -190,5 +205,7 @@
 			<uniqueVersion>false</uniqueVersion>
 		</repository>
 	</distributionManagement>
+
+
 
 </project>

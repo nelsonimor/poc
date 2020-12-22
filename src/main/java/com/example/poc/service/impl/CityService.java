@@ -2,6 +2,7 @@ package com.example.poc.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,14 +46,14 @@ public class CityService implements ICityService {
 
 	@Override
 	public CityDTO addCity(CityDTO city) throws AlreadyExistsException, NotFoundException {
-		CountryBO countryBO = countryDAO.findByName(city.getCountryName());
-		if(countryBO==null) {
+		Optional<CountryBO> countryBO = countryDAO.findByName(city.getCountryName());
+		if(!countryBO.isPresent()) {
 			throw new NotFoundException("Country with name "+city.getCountryName()+" does not exist");
 		}
 		
 		
-		CityBO c = this.cityDAO.findByNameAndCountry(city.getName(),countryBO);
-		if(c!=null) {
+		Optional<CityBO> c = this.cityDAO.findByNameAndCountry(city.getName(),countryBO.get());
+		if(c.isPresent()) {
 			throw new AlreadyExistsException("City with name : "+city.getName()+" for the country "+city.getCountryName()+" already exists");
 		}
 		
@@ -60,10 +61,10 @@ public class CityService implements ICityService {
 
 		if(city.getLatitude()==null || city.getLongitude()==null) {
 			Address address = geolocationService.geolocate(city.getName(), city.getCountryName());
-			cityBO = ObjectMapper.toCityBO(address, city.getName(), countryBO);
+			cityBO = ObjectMapper.toCityBO(address, city.getName(), countryBO.get());
 		}
 		else {
-			cityBO = ObjectMapper.toCityBO(city,countryBO);
+			cityBO = ObjectMapper.toCityBO(city,countryBO.get());
 		}
 		
 		CityBO cityBOAdded = (CityBO)this.cityDAO.save(cityBO);

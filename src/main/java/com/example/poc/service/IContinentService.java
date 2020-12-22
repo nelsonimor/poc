@@ -13,9 +13,9 @@ public interface IContinentService {
 	
 	ContinentDTO findById(int id) throws NotFoundException;
 	
-	List<ContinentDTO> findByName(String name);
+	ContinentDTO findByName(String name);
 	
-	List<ContinentDTO> findByCode(String code);
+	ContinentDTO findByCode(String code);
 	
 	List<ContinentDTO> findByRequest(ContinentRequest continentRequest);
 	

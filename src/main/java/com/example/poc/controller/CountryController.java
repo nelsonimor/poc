@@ -56,7 +56,7 @@ public class CountryController {
 
 	@ApiOperation("Add new country")
 	@PostMapping({"/Countries"})
-	public ResponseEntity<Void> addContinent(@RequestBody @Valid CountryDTO country) throws AlreadyExistsException,NotFoundException  {
+	public ResponseEntity<Void> addCountry(@RequestBody @Valid CountryDTO country) throws AlreadyExistsException,NotFoundException  {
 		CountryDTO newCountryDTO = countryService.addCountry(country);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
@@ -64,6 +64,12 @@ public class CountryController {
 				.buildAndExpand(new Object[]{newCountryDTO.getId()})
 				.toUri();
 		return ResponseEntity.created(location).build();
+	}
+	
+	@ApiOperation("Retrieve countries by name like")
+	@GetMapping({"/Countries/likeName/{name}"})
+	public List<CountryDTO> getCountriesByLikeName(@PathVariable String name) {
+		return countryService.getCountriesByLikeName(name);
 	}
 
 

@@ -55,13 +55,13 @@ public class ContinentController {
 
 	@ApiOperation("Retrieve continents by name")
 	@GetMapping({"/Continents/name/{name}"})
-	public List<ContinentDTO> getContinentByName(@PathVariable String name) {
+	public ContinentDTO getContinentByName(@PathVariable String name) {
 		return continentService.findByName(name);
 	}
-
+	
 	@ApiOperation("Retrieve continents by code")
 	@GetMapping({"/Continents/code/{code}"})
-	public List<ContinentDTO> getContinentByCode(@PathVariable String code) {
+	public ContinentDTO getContinentByCode(@PathVariable String code) {
 		return continentService.findByCode(code);
 	}
 

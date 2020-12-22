@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -58,8 +59,8 @@ public class CityDAOTests {
 	
 		cityDAO.save(dunkerque);
 
-	    CityBO city = cityDAO.findByNameAndCountry("Dunkerque", france);
-	    assertNotNull(city);
+	    Optional<CityBO> city = cityDAO.findByNameAndCountry("Dunkerque", france);
+	    assertEquals(city.isPresent(), true);
 	  }
 	  
 	  @Test
@@ -74,8 +75,8 @@ public class CityDAOTests {
 	
 		cityDAO.save(dunkerque);
 
-	    CityBO city = cityDAO.findByNameAndCountry("Lille", france);
-	    assertEquals(city, null);
+	    Optional<CityBO> city = cityDAO.findByNameAndCountry("Lille", france);
+	    assertEquals(city.isPresent(), false);
 	  }
 
 

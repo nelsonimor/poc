@@ -23,8 +23,11 @@ import com.example.poc.controller.ContinentController;
 import com.example.poc.dao.ICityDAO;
 import com.example.poc.dao.IContinentDAO;
 import com.example.poc.dao.ICustomContinentDAO;
+import com.example.poc.exception.TechnicalExceptionHandler;
+import com.example.poc.exception.ValidationExceptionHandler;
 import com.example.poc.service.ICityService;
 import com.example.poc.service.IContinentService;
+import com.example.poc.service.IEventCreatorService;
 import com.exemple.poc.client.dto.response.CityDTO;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 
@@ -39,6 +42,9 @@ public class CityControllerTests {
 
 	@MockBean
 	private ICityService cityService;
+	
+	@MockBean
+	private IEventCreatorService eventCreatorService;
 	
 	String cityName = "Dunkerque";
 	String countryName = "France";

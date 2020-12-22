@@ -25,6 +25,7 @@ import com.example.poc.dao.ICountryDAO;
 import com.example.poc.dao.ICustomContinentDAO;
 import com.example.poc.service.IContinentService;
 import com.example.poc.service.ICountryService;
+import com.example.poc.service.IEventCreatorService;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 import com.exemple.poc.client.dto.response.CountryDTO;
 
@@ -39,6 +40,9 @@ public class CountryControllerTests {
 
 	@MockBean
 	private ICountryService countryService;
+	
+	@MockBean
+	private IEventCreatorService eventCreatorService;
 
 	@MockBean
 	private ICountryDAO countryDAO;
@@ -52,7 +56,6 @@ public class CountryControllerTests {
 
 	@Test
 	public void testFindAllCountries() throws Exception {
-
 		CountryDTO mockCountry= new CountryDTO();
 		mockCountry.setId(id);
 		mockCountry.setCodeiso2(codeIso2);
@@ -78,7 +81,6 @@ public class CountryControllerTests {
 
 	@Test
 	public void testFindCountriesByName() throws Exception {
-		
 		CountryDTO mockCountry= new CountryDTO();
 		mockCountry.setId(id);
 		mockCountry.setCodeiso2(codeIso2);
@@ -97,6 +99,82 @@ public class CountryControllerTests {
 				+ "\"codeiso3\":\""+codeIso3+"\","
 				+ "\"codeiso2\":\""+codeIso2+"\"}";
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+	}
+	
+	
+	@Test
+	public void testAddContinentSuccess() throws Exception {
+		CountryDTO countryDTO = new CountryDTO();
+		countryDTO.setId(1);
+		countryDTO.setNationality("French");
+		countryDTO.setName("France");
+		countryDTO.setCodeiso2("FR");
+		countryDTO.setCodeiso3("FRA");
+		countryDTO.setContinentName("europe");
+
+		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Countries")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"id\":\"1\","
+						+ "\"codeiso2\":\"FR\","
+						+ "\"codeiso3\":\"FRA\","
+						+ "\"nationality\":\"French\","
+						+ "\"continentName\":\"Europe\","
+						+ "\"name\":\"France\"}")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+	
+	@Test
+	public void testAddContinentFailed() throws Exception {
+		CountryDTO countryDTO = new CountryDTO();
+		countryDTO.setId(1);
+		countryDTO.setNationality("French");
+		countryDTO.setName("France (");
+		countryDTO.setCodeiso2("FR");
+		countryDTO.setCodeiso3("FRA");
+		countryDTO.setContinentName("europe");
+
+		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Countries")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"id\":\"1\","
+						+ "\"codeiso2\":\"FR\","
+						+ "\"codeiso3\":\"FRA\","
+						+ "\"nationality\":\"French\","
+						+ "\"continentName\":\"Europe\","
+						+ "\"name\":\"France (\"}")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isBadRequest()).andReturn();
+	}
+	
+	@Test
+	public void testAddContinentSuccessWithSpace() throws Exception {
+		CountryDTO countryDTO = new CountryDTO();
+		countryDTO.setId(1);
+		countryDTO.setNationality("American");
+		countryDTO.setName("United States of America");
+		countryDTO.setCodeiso2("US");
+		countryDTO.setCodeiso3("USA");
+		countryDTO.setContinentName("America");
+
+		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Countries")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"id\":\"1\","
+						+ "\"codeiso2\":\"US\","
+						+ "\"codeiso3\":\"USA\","
+						+ "\"nationality\":\"American\","
+						+ "\"continentName\":\"America\","
+						+ "\"name\":\"United States of America\"}")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 	}
 
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,17 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.poc.bo.ContinentBO;
 import com.example.poc.bo.CountryBO;
-import com.example.poc.client.dto.request.ContinentRequest;
-import com.example.poc.dao.IContinentDAO;
 import com.example.poc.dao.ICountryDAO;
-import com.example.poc.dao.ICustomContinentDAO;
-import com.example.poc.exception.AlreadyExistsException;
-import com.example.poc.exception.NotFoundException;
-import com.example.poc.service.IContinentService;
 import com.example.poc.service.ICountryService;
-import com.example.poc.service.impl.ContinentService;
 import com.example.poc.service.impl.CountryService;
-import com.exemple.poc.client.dto.response.ContinentDTO;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -74,8 +75,8 @@ public class PersonDAOTests {
 
 			personDAO.save(person);
 
-		    PersonBO p = personDAO.findByLastnameAndFirstnameAndBirthdate(lastname, firstname, birthdate);
-		    assertNotNull(p);
+		    Optional<PersonBO> p = personDAO.findByLastnameAndFirstnameAndBirthdate(lastname, firstname, birthdate);
+		    assertEquals(true, p.isPresent());
 	  }
 	  
 

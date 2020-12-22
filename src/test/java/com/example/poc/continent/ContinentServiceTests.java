@@ -1,9 +1,11 @@
 package com.example.poc.continent;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,14 +49,15 @@ public class ContinentServiceTests {
 	
 	@BeforeEach
     void setMockOutput() {
+		Optional<ContinentBO> optEurope = Optional.of((ContinentBO) europe);
 		continentBOs.add(europe);
         Mockito.when(continentDAO.findAll()).thenReturn(continentBOs);
-        Mockito.when(continentDAO.findById(1)).thenReturn(europe);
-        Mockito.when(continentDAO.findById(2)).thenReturn(null);
-        Mockito.when(continentDAO.findByName("Europe")).thenReturn(continentBOs);
-        Mockito.when(continentDAO.findByCode("EU")).thenReturn(continentBOs);
-        Mockito.when(continentDAO.findByNameAndCode("Africa", "AF")).thenReturn(continentBOs);
-        Mockito.when(continentDAO.findByNameAndCode("Europe", "EU")).thenReturn(null);
+        Mockito.when(continentDAO.findById(1)).thenReturn(optEurope);
+        Mockito.when(continentDAO.findById(2)).thenReturn(Optional.empty());
+        Mockito.when(continentDAO.findByName("Europe")).thenReturn(optEurope);
+        Mockito.when(continentDAO.findByCode("EU")).thenReturn(optEurope);
+        Mockito.when(continentDAO.findByNameAndCode("Africa", "AF")).thenReturn(Optional.empty());
+        Mockito.when(continentDAO.findByNameAndCode("Europe", "EU")).thenReturn(optEurope);
         Mockito.when(continentDAO.save(Mockito.any())).thenReturn(europe);
         Mockito.when(customContinentDAO.findContinents(continentRequest)).thenReturn(continentBOs);
     }
@@ -84,13 +87,13 @@ public class ContinentServiceTests {
 	@DisplayName("Continent : findByName")
     @Test
     void testFindByName() {
-        assertEquals(1, continentService.findByName("Europe").size());
+		assertNotNull(continentService.findByName("Europe"));
     }
 	
 	@DisplayName("Continent : findByName")
     @Test
     void testFindByCode() {
-        assertEquals(1, continentService.findByCode("EU").size());
+        assertNotNull(continentService.findByCode("EU"));
     }
 	
 	@DisplayName("Continent : findByRequest")
@@ -99,10 +102,10 @@ public class ContinentServiceTests {
         assertEquals(1, continentService.findByRequest(continentRequest).size());
     }
 	
-	@DisplayName("Continent : add continent alreadyExists")
+	@DisplayName("Continent : add continent")
     @Test
     void testAddContinent() {
-		ContinentDTO dto = continentService.addContinent(new ContinentDTO(1, "Europe", "EU"));
+		ContinentDTO dto = continentService.addContinent(new ContinentDTO(1, "AF", "Africa"));
 		Assertions.assertNotNull(dto);
     }
 	
@@ -110,7 +113,7 @@ public class ContinentServiceTests {
     @Test
     void testAddContinentAlreadyExists() {
         Assertions.assertThrows(AlreadyExistsException.class, () -> {
-        	continentService.addContinent(new ContinentDTO(1, "AF", "Africa"));
+        	continentService.addContinent(new ContinentDTO(1, "EU", "Europe"));
           });
     }
 

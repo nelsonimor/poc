@@ -26,17 +26,20 @@ public class CountryDAOTests {
 	  @Test
 	  public void should_find_all_countries() {
 		ContinentBO europe = new ContinentBO(1,"EU","Europe");
+		
 		CountryBO france = new CountryBO(1, "France", "FR", "FRA", "French", europe);
 		CountryBO spain = new CountryBO(2, "Spain", "ES", "SPA", "Spanish", europe);
 		CountryBO italy = new CountryBO(3, "Italy", "IT", "ITA", "Italian", europe);
+		CountryBO belgium = new CountryBO(4, "Belgium", "BE", "BEL", "Belgian", europe);
 	
 		countryDAO.save(france);
 		countryDAO.save(spain);
 		countryDAO.save(italy);
+		countryDAO.save(belgium);
 
 	    
 	    List<CountryBO> countries = countryDAO.findAll();
-	    assertEquals(countries.size(),3);
+	    assertEquals(countries.size(),4);
 	  }
 
 

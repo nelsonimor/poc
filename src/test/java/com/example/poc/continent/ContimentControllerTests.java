@@ -21,6 +21,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.example.poc.controller.ContinentController;
 import com.example.poc.dao.IContinentDAO;
 import com.example.poc.dao.ICustomContinentDAO;
+import com.example.poc.exception.TechnicalExceptionHandler;
+import com.example.poc.exception.ValidationExceptionHandler;
 import com.example.poc.service.IContinentService;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 
@@ -35,6 +37,12 @@ public class ContimentControllerTests {
 
 	@MockBean
 	private IContinentService continentService;
+	
+	@MockBean
+	private TechnicalExceptionHandler technicalExceptionHandler;
+	
+	@MockBean
+	private ValidationExceptionHandler validationExceptionHandler;
 
 	@MockBean
 	private IContinentDAO continentDAO;
@@ -71,23 +79,19 @@ public class ContimentControllerTests {
 
 	@Test
 	public void testFindContinentByName() throws Exception {
-		List<ContinentDTO> mockContinents = new ArrayList<ContinentDTO>();
-		mockContinents.add(mockContinent);
-		Mockito.when(continentService.findByName(name)).thenReturn(mockContinents);
+		Mockito.when(continentService.findByName(name)).thenReturn(mockContinent);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Continents/name/"+name).accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		String expected = "[{\"id\":1,\"code\":\""+code+"\",\"name\":\""+name+"\"}]";
+		String expected = "{\"id\":1,\"code\":\""+code+"\",\"name\":\""+name+"\"}";
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 	}
 
 	@Test
 	public void testFindContinentByCode() throws Exception {
-		List<ContinentDTO> mockContinents = new ArrayList<ContinentDTO>();
-		mockContinents.add(mockContinent);
-		Mockito.when(continentService.findByCode(code)).thenReturn(mockContinents);
+		Mockito.when(continentService.findByCode(code)).thenReturn(mockContinent);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Continents/code/"+code).accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		String expected = "[{\"id\":1,\"code\":\""+code+"\",\"name\":\""+name+"\"}]";
+		String expected = "{\"id\":1,\"code\":\""+code+"\",\"name\":\""+name+"\"}";
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 	}
 

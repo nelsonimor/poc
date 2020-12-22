@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,6 +56,8 @@ public class CityServiceTests {
     void setMockOutput() {
 		
 		CountryBO france = new CountryBO(1, "France", "FR", "FRA","French", new ContinentBO(1, "EU", "Europe"));
+		Optional<CountryBO> optFrance = Optional.of((CountryBO) france);
+		
 		
 		CityBO dk = new CityBO();
 		dk.setId(1);
@@ -64,7 +67,7 @@ public class CityServiceTests {
 		dk.setLatitude(2d);
 
 		cityBOs.add(dk);
-        Mockito.when(countryDAO.findByName("France")).thenReturn(france);
+        Mockito.when(countryDAO.findByName("France")).thenReturn(optFrance);
         Mockito.when(cityDAO.findAll()).thenReturn(cityBOs);
         Mockito.when(cityDAO.save(Mockito.any())).thenReturn(dk);
 

@@ -1,6 +1,7 @@
 package com.example.poc.mapper;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import com.example.poc.bo.CityBO;
 import com.example.poc.bo.ContinentBO;
@@ -114,14 +115,16 @@ public class ObjectMapper {
 		return personDto;
 	}
 
-	public static PersonBO toPersonBO(PersonDTO person,CountryBO nationality1,CountryBO nationality2,CityBO birthplace) {
+	public static PersonBO toPersonBO(PersonDTO person,CountryBO nationality1,Optional<CountryBO> nationality2,CityBO birthplace) {
 		PersonBO personBO = new PersonBO();
 		personBO.setId(person.getId());
 		personBO.setFirstname(person.getFirstname());
 		personBO.setLastname(person.getLastname());
 		personBO.setBirthdate(new Timestamp(person.getBirthDate().getTime()));
 		personBO.setNationality1(nationality1);
-		personBO.setNationality2(nationality2);
+		if(nationality2.isPresent()) {
+			personBO.setNationality2(nationality2.get());
+		}
 		personBO.setBirthplace(birthplace);
 		return personBO;
 	}

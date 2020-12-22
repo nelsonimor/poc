@@ -3,6 +3,7 @@ package com.example.poc.service.impl;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,35 +52,35 @@ public class PersonService implements IPersonService {
 	@Override
 	public PersonDTO addPerson(PersonDTO person) throws AlreadyExistsException, NotFoundException {
 		
-		CountryBO nationality1 = countryDAO.findByName(person.getNationality1());
-		if(nationality1==null) {
+		Optional<CountryBO> nationality1 = countryDAO.findByName(person.getNationality1());
+		if(!nationality1.isPresent()) {
 			throw new NotFoundException("Main nationality with name "+person.getNationality1()+" does not exist");
 		}
 		
-		CountryBO nationality2 = null;
+		Optional<CountryBO> nationality2 = Optional.empty();
 		if(person.getNationality2()!=null) {
 			nationality2 = countryDAO.findByName(person.getNationality2());
-			if(nationality2==null) {
+			if(!nationality2.isPresent()) {
 				throw new NotFoundException("Second nationality with name "+person.getNationality2()+" does not exist");
 			}
 		}
 		
-		CountryBO countryBO = countryDAO.findByName(person.getBirthCountryPlace());
-		if(countryBO==null) {
+		Optional<CountryBO> countryBO = countryDAO.findByName(person.getBirthCountryPlace());
+		if(!countryBO.isPresent()) {
 			throw new NotFoundException("Birth country with name "+person.getBirthCountryPlace()+" does not exist");
 		}
 		
-		CityBO birthplace = cityDAO.findByNameAndCountry(person.getBirthCityPlace(), countryBO);
-		if(birthplace==null) {
+		Optional<CityBO> birthplace = cityDAO.findByNameAndCountry(person.getBirthCityPlace(), countryBO.get());
+		if(!birthplace.isPresent()) {
 			throw new NotFoundException("Birth city with name "+person.getBirthCityPlace()+" and country "+person.getBirthCountryPlace()+" do not exist");
 		}
 		
-		PersonBO personBO = personDAO.findByLastnameAndFirstnameAndBirthdate(person.getLastname(), person.getFirstname(), new Timestamp(person.getBirthDate().getTime()));
-		if(personBO!=null) {
+		Optional<PersonBO> personBO = personDAO.findByLastnameAndFirstnameAndBirthdate(person.getLastname(), person.getFirstname(), new Timestamp(person.getBirthDate().getTime()));
+		if(personBO.isPresent()) {
 			throw new AlreadyExistsException("Person with name ["+person.getLastname()+" "+person.getFirstname()+"] and birthdate "+person.getBirthDate()+" already exists");
 		}
 		
-		PersonBO personBOAdded = (PersonBO)this.personDAO.save(ObjectMapper.toPersonBO(person,nationality1,nationality2,birthplace));
+		PersonBO personBOAdded = (PersonBO)this.personDAO.save(ObjectMapper.toPersonBO(person,nationality1.get(),nationality2,birthplace.get()));
 		PersonDTO personDTO = ObjectMapper.toPersonDTO(personBOAdded);
 		return personDTO;
 	}

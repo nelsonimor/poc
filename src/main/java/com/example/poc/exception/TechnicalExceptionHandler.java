@@ -30,7 +30,7 @@ public class TechnicalExceptionHandler {
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<ErrorResponse> handle(DataIntegrityViolationException e, Locale locale) {
-		eventCreatorService.createEvent("TECH-001",new Object[] {e.getMessage().toString().substring(0, 200)});
+		eventCreatorService.createEventFailure("TECH-001",new Object[] {e.getMessage().toString().substring(0, 200)});
 		String errorMessage = messageSource.getMessage("msg.TECH-001",new Object[] {e.getMessage().toString()},locale);  
 		ErrorResponse error = new ErrorResponse();
 		error.setErrorCode(HttpStatus.BAD_REQUEST.value());
@@ -40,7 +40,7 @@ public class TechnicalExceptionHandler {
 	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<ErrorResponse> handle(ConstraintViolationException e, Locale locale) {
-		eventCreatorService.createEvent("TECH-001",new Object[] {e.getMessage().toString().substring(0, 200)});
+		eventCreatorService.createEventFailure("TECH-001",new Object[] {e.getMessage().toString().substring(0, 200)});
 		String errorMessage = messageSource.getMessage("msg.TECH-001",new Object[] {e.getMessage().toString()},locale);  
 		ErrorResponse error = new ErrorResponse();
 		error.setErrorCode(HttpStatus.BAD_REQUEST.value());

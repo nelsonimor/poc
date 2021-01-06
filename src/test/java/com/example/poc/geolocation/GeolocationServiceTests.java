@@ -6,10 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.IGeolocationService;
 import com.example.poc.service.impl.GeolocationService;
 
@@ -21,6 +23,9 @@ public class GeolocationServiceTests {
 	
 	@InjectMocks
     private IGeolocationService geolocationService = new GeolocationService();
+	
+	@Mock
+	private IEventCreatorService eventCreatorService;
 
 	@BeforeEach
     void setMockOutput() {

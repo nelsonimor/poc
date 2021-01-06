@@ -176,5 +176,82 @@ public class CountryControllerTests {
 
 		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 	}
+	
+	@Test
+	public void testAddContinentSuccessSpecialChar1() throws Exception {
+		CountryDTO countryDTO = createDummyCountryDto("Curaçao");
+		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Countries")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(createDummyCountryResponse("Curaçao"))
+				.contentType(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+	
+	@Test
+	public void testAddContinentSuccessSpecialChar2() throws Exception {
+		CountryDTO countryDTO = createDummyCountryDto("Guinea-Bissau");
+
+		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Countries")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(createDummyCountryResponse("Guinea-Bissau"))
+				.contentType(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+	
+	@Test
+	public void testAddContinentSuccessSpecialChar3() throws Exception {
+		CountryDTO countryDTO = createDummyCountryDto("Réunion");
+
+		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Countries")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(createDummyCountryResponse("Réunion"))
+				.contentType(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+	
+	@Test
+	public void testAddContinentSuccessSpecialChar4() throws Exception {
+		CountryDTO countryDTO = createDummyCountryDto("Svalbard & Jan Mayen Islands");
+
+		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Countries")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(createDummyCountryResponse("Svalbard & Jan Mayen Islands"))
+				.contentType(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+	
+	private CountryDTO createDummyCountryDto(String name) {
+		CountryDTO countryDTO = new CountryDTO();
+		countryDTO.setId(1);
+		countryDTO.setName(name);
+		countryDTO.setNationality("dummy");
+		countryDTO.setCodeiso2("DM");
+		countryDTO.setCodeiso3("DMY");
+		countryDTO.setContinentName("America");
+		return countryDTO;
+	}
+	
+	private String createDummyCountryResponse(String name) {
+		return "{\"id\":\"1\","
+				+ "\"codeiso2\":\"DM\","
+				+ "\"codeiso3\":\"DMY\","
+				+ "\"nationality\":\"dummy\","
+				+ "\"continentName\":\"America\","
+				+ "\"name\":\""+name+"\"}";
+	}
+	
+	
 
 }

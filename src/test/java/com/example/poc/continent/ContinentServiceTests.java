@@ -25,6 +25,7 @@ import com.example.poc.dao.ICustomContinentDAO;
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
 import com.example.poc.service.IContinentService;
+import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.impl.ContinentService;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 
@@ -37,6 +38,9 @@ public class ContinentServiceTests {
 	
 	@Mock
     private ICustomContinentDAO customContinentDAO;
+	
+	@Mock
+	private IEventCreatorService eventCreatorService;
 	
 	@InjectMocks
     private IContinentService continentService = new ContinentService();

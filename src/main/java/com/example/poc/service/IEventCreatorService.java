@@ -2,6 +2,8 @@ package com.example.poc.service;
 
 public interface IEventCreatorService {
 	
-	void createEvent(String code,Object[] messageParams);
+	void createEventSuccess(String code,Object[] messageParams);
+	
+	void createEventFailure(String code,Object[] messageParams);
 
 }

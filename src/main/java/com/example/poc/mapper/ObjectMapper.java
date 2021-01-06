@@ -7,10 +7,12 @@ import com.example.poc.bo.CityBO;
 import com.example.poc.bo.ContinentBO;
 import com.example.poc.bo.CountryBO;
 import com.example.poc.bo.PersonBO;
+import com.example.poc.bo.TeamBO;
 import com.exemple.poc.client.dto.response.CityDTO;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 import com.exemple.poc.client.dto.response.CountryDTO;
 import com.exemple.poc.client.dto.response.PersonDTO;
+import com.exemple.poc.client.dto.response.TeamDTO;
 
 import model.Address;
 
@@ -127,6 +129,28 @@ public class ObjectMapper {
 		}
 		personBO.setBirthplace(birthplace);
 		return personBO;
+	}
+
+	public static TeamDTO toTeamDto(TeamBO t) {
+		TeamDTO teamDto = new TeamDTO();
+		teamDto.setName(t.getName());
+		if(t.getCity1()!=null)teamDto.setCityName1(t.getCity1().getName());
+		if(t.getCity2()!=null)teamDto.setCityName2(t.getCity2().getName());
+		if(t.getCity3()!=null)teamDto.setCityName3(t.getCity3().getName());
+		if(t.getCountry()!=null)teamDto.setCountryName(t.getCountry().getName());
+		teamDto.setType(t.getType());
+		return teamDto;
+	}
+
+	public static TeamBO toTeamBO(TeamDTO teamDto, Optional<CityBO> optCity1, Optional<CityBO> optCity2, Optional<CityBO> optCity3, Optional<CountryBO> optCountry) {
+		TeamBO teamBO = new TeamBO();
+		teamBO.setName(teamDto.getName());
+		teamBO.setType(teamDto.getType());
+		if(optCity1.isPresent())teamBO.setCity1(optCity1.get());
+		if(optCity2.isPresent())teamBO.setCity2(optCity2.get());
+		if(optCity3.isPresent())teamBO.setCity3(optCity3.get());
+		if(optCountry.isPresent())teamBO.setCountry(optCountry.get());
+		return teamBO;
 	}
 
 

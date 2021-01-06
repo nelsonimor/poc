@@ -18,6 +18,7 @@ import com.example.poc.exception.NotFoundException;
 import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.ICountryService;
 import com.example.poc.service.IEventCreatorService;
+import com.example.poc.util.ActionCode;
 import com.exemple.poc.client.dto.response.CountryDTO;
 
 @Service
@@ -56,22 +57,20 @@ public class CountryService implements ICountryService {
 		
 		Optional<CountryBO> c = this.countryDAO.findByName(country.getName());
 		if(c.isPresent()) {
-			eventCreatorService.createEvent("COUNTRY-001",new Object[] {country.getName()});
-			throw new AlreadyExistsException("COUNTRY-001",new Object[] {country.getName()});
+			eventCreatorService.createEventFailure(ActionCode.COUNTRY_ADD_FAILED_ALREADY_EXIST,new Object[] {country.getName()});
+			throw new AlreadyExistsException(ActionCode.COUNTRY_ADD_FAILED_ALREADY_EXIST,new Object[] {country.getName()});
 		}
 		
 		Optional<ContinentBO> continentBO = continentDAO.findByName(country.getContinentName());
 		if(!continentBO.isPresent()) {
-			eventCreatorService.createEvent("COUNTRY-002",new Object[] {country.getContinentName()});
-			throw new NotFoundException("COUNTRY-002",new Object[] {country.getContinentName()});
+			eventCreatorService.createEventFailure(ActionCode.COUNTRY_ADD_FAILED_UNKNOWN_CONTINENT,new Object[] {country.getContinentName()});
+			throw new NotFoundException(ActionCode.COUNTRY_ADD_FAILED_UNKNOWN_CONTINENT,new Object[] {country.getContinentName()});
 		}
 		
 
-		CountryBO countryBO = ObjectMapper.toCountryBO(country,continentBO.get());
-		
-		
+		CountryBO countryBO = ObjectMapper.toCountryBO(country,continentBO.get());	
 		CountryBO countryBOAdded = (CountryBO)this.countryDAO.save(countryBO);
-		eventCreatorService.createEvent("COUNTRY-003",new Object[] {countryBOAdded.getName(),countryBOAdded.getId()});
+		eventCreatorService.createEventSuccess(ActionCode.COUNTRY_ADD_SUCCESS,new Object[] {countryBOAdded.getName(),countryBOAdded.getId()});
 		return ObjectMapper.toCountryDto(countryBOAdded);
 	}
 

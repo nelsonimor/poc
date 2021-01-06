@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.poc.bo.ContinentBO;
 import com.example.poc.client.dto.request.ContinentRequest;
@@ -16,6 +17,8 @@ import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
 import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.IContinentService;
+import com.example.poc.service.IEventCreatorService;
+import com.example.poc.util.ActionCode;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 
 @Service
@@ -26,6 +29,9 @@ public class ContinentService implements IContinentService {
 	
 	@Autowired
 	private ICustomContinentDAO customContinentDAO;
+	
+	@Autowired
+	private IEventCreatorService eventCreatorService;
 	
 	
 	public ContinentService() {
@@ -73,16 +79,19 @@ public class ContinentService implements IContinentService {
 		return continentDTOs;
 	}
 
+	@Transactional
 	@Override
 	public ContinentDTO addContinent(ContinentDTO continent) throws AlreadyExistsException {
 		
 		Optional<ContinentBO> c = this.continentDAO.findByNameAndCode(continent.getName(), continent.getCode());
 		if(c.isPresent()) {
-			throw new AlreadyExistsException("Continent with name : "+continent.getName()+" and code : "+continent.getCode()+" already exists");
+			eventCreatorService.createEventFailure(ActionCode.CONTINENT_ADD_FAILED_ALREADY_EXIST,new Object[] {continent.getName()});
+			throw new AlreadyExistsException(ActionCode.CONTINENT_ADD_FAILED_ALREADY_EXIST,new Object[] {continent.getName()});		
 		}
 		
 		ContinentBO continentBO = ObjectMapper.toContinentBo(continent);
 		ContinentBO continentBOAdded = (ContinentBO)this.continentDAO.save(continentBO);
+		eventCreatorService.createEventSuccess(ActionCode.CONTINENT_ADD_SUCCESS,new Object[] {continentBOAdded.getName(),continentBOAdded.getId()});
 		return ObjectMapper.toContinentDto(continentBOAdded);
 	}
 

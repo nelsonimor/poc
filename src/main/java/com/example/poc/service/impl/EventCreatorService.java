@@ -24,17 +24,28 @@ public class EventCreatorService implements IEventCreatorService {
 	@Value("${endpoint.events}")
 	private String endPointEvent;
 
-	@Override
-	public void createEvent(String code,Object[] messageParams) {
+	
+	public void createEvent(String code,Object[] messageParams,String nature) {
 		String msg = messageSource.getMessage("msg."+code,messageParams, Locale.getDefault());
 		EventDTO eventDTO = new EventDTO();
 		eventDTO.setCode("EVT-"+code);
 		eventDTO.setMessage(msg);
+		eventDTO.setNature(nature);
 		restTemplate.postForEntity(endPointEvent, eventDTO, EventDTO.class);
 	}
 	
 	@Bean
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();
+	}
+
+	@Override
+	public void createEventSuccess(String code, Object[] messageParams) {
+		createEvent(code,messageParams,"SUCCESS");
+	}
+
+	@Override
+	public void createEventFailure(String code, Object[] messageParams) {
+		createEvent(code,messageParams,"FAILURE");
 	}
 }

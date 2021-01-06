@@ -24,6 +24,7 @@ import com.example.poc.dao.ICityDAO;
 import com.example.poc.dao.ICountryDAO;
 import com.example.poc.dao.ICustomContinentDAO;
 import com.example.poc.service.ICityService;
+import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.IGeolocationService;
 import com.example.poc.service.impl.CityService;
 import com.exemple.poc.client.dto.response.CityDTO;
@@ -45,6 +46,9 @@ public class CityServiceTests {
 	
 	@Mock
     private ICustomContinentDAO customContinentDAO;
+	
+	@Mock
+	private IEventCreatorService eventCreatorService;
 	
 	@InjectMocks
     private ICityService cityService = new CityService();

@@ -42,10 +42,10 @@ public class CityControllerTests {
 
 	@MockBean
 	private ICityService cityService;
-	
+
 	@MockBean
 	private IEventCreatorService eventCreatorService;
-	
+
 	String cityName = "Dunkerque";
 	String countryName = "France";
 
@@ -56,7 +56,7 @@ public class CityControllerTests {
 		cityDTO.setId(1);
 		cityDTO.setName(cityName);
 		cityDTO.setCountryName(countryName);
-		
+
 		List<CityDTO> mockCities = new ArrayList<CityDTO>();
 		mockCities.add(cityDTO);
 		Mockito.when(cityService.findAllCities()).thenReturn(mockCities);
@@ -84,7 +84,7 @@ public class CityControllerTests {
 
 		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 	}
-	
+
 	@Test
 	public void testAddCityValidationFailedTooSmall() throws Exception {
 		CityDTO cityDTO = new CityDTO();
@@ -102,25 +102,83 @@ public class CityControllerTests {
 
 		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isBadRequest()).andReturn();
 	}
-	
+
 	@Test
 	public void testAddCityValidationFailedWrongPattern() throws Exception {
-		CityDTO cityDTO = new CityDTO();
-		cityDTO.setId(1);
-		cityDTO.setName("<%UNDEFINED%>");
-		cityDTO.setCountryName(countryName);
-
-
+		String cityName = "<%UNDEFINED%>";
+		CityDTO cityDTO = getDummyCityDto(cityName);
 		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/Cities")
 				.accept(MediaType.APPLICATION_JSON)
-				.content("{\"id\":\"1\",\"name\":\"<%UNDEFINED%>\",\"countryName\":\"France\"}")
+				.content(getDummyCityContent(cityName))
 				.contentType(MediaType.APPLICATION_JSON);
-
 		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isBadRequest()).andReturn();
 	}
 
+	@Test
+	public void testAddCityValidationCorrectPattern1() throws Exception {
+		String cityName = "Angoulème";
+		CityDTO cityDTO = getDummyCityDto(cityName);
+		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Cities")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(getDummyCityContent(cityName))
+				.contentType(MediaType.APPLICATION_JSON);
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+
+	@Test
+	public void testAddCityValidationCorrectPattern2() throws Exception {
+		String cityName = "Genéve";
+		CityDTO cityDTO = getDummyCityDto(cityName);
+		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Cities")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(getDummyCityContent(cityName))
+				.contentType(MediaType.APPLICATION_JSON);
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+	
+	@Test
+	public void testAddCityValidationCorrectPattern3() throws Exception {
+		String cityName = "Capo d'Orlando";
+		CityDTO cityDTO = getDummyCityDto(cityName);
+		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Cities")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(getDummyCityContent(cityName))
+				.contentType(MediaType.APPLICATION_JSON);
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+	
+	@Test
+	public void testAddCityValidationCorrectPattern4() throws Exception {
+		String cityName = "Ceská Lípa";
+		CityDTO cityDTO = getDummyCityDto(cityName);
+		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/Cities")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(getDummyCityContent(cityName))
+				.contentType(MediaType.APPLICATION_JSON);
+		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+	}
+
+	private CityDTO getDummyCityDto(String cityName) {
+		CityDTO cityDTO = new CityDTO();
+		cityDTO.setId(1);
+		cityDTO.setName(cityName);
+		cityDTO.setCountryName(countryName);
+		return cityDTO;
+	}
+
+	private String getDummyCityContent(String cityName) {
+		return "{\"id\":\"1\",\"name\":\""+cityName+"\",\"countryName\":\""+countryName+"\"}";
+	}
 
 
 }

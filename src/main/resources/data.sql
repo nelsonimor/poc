@@ -18,4 +18,17 @@ INSERT INTO t_team(name,fk_team_city1_id) VALUES ('ASVEL',(select id from t_city
 INSERT INTO t_competition(name,fk_continent_id) VALUES ('Euroleague',(select id from t_continent where name = 'Europe'));
 INSERT INTO t_competition(name,fk_country_id) VALUES ('Jeep Elite',(select id from t_country where name = 'France'));
 
-INSERT INTO t_roster(fk_team_id,startdate,enddate) values ((select id from t_team where name = 'ASVEL'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+INSERT INTO t_competition_organization(fk_competition_id,startdate,enddate) values ((select id from t_competition where name = 'Euroleague'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+INSERT INTO t_competition_organization(fk_competition_id,startdate,enddate) values ((select id from t_competition where name = 'Jeep Elite'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+
+INSERT INTO t_roster(id,fk_team_id,startdate,enddate) VALUES (1,(select id from t_team where name = 'ASVEL'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+
+INSERT INTO t_roster_item(fk_roster_id,fk_person_id,startdate,enddate) VALUES (1,(select id from t_person where lastname = 'Cole'),null,null);
+INSERT INTO t_roster_item(fk_roster_id,fk_person_id,startdate,enddate) VALUES (1,(select id from t_person where lastname = 'Diot'),null,null);
+INSERT INTO t_roster_item(fk_roster_id,fk_person_id,startdate,enddate) VALUES (1,(select id from t_person where lastname = 'Kahudi'),null,null);
+INSERT INTO t_roster_item(fk_roster_id,fk_person_id,startdate,enddate) VALUES (1,(select id from t_person where lastname = 'Lighty'),null,null);
+INSERT INTO t_roster_item(fk_roster_id,fk_person_id,startdate,enddate) VALUES (1,(select id from t_person where lastname = 'Lacombe'),null,null);
+
+INSERT INTO t_competition_participation(fk_competition_organization_id,fk_roster_id) VALUES (1,1);
+INSERT INTO t_competition_participation(fk_competition_organization_id,fk_roster_id) VALUES (2,1);
+

@@ -12,6 +12,12 @@ public class Test {
 		String s = "Càret";
 		System.out.println(s.toUpperCase());
 		System.out.println(stripAccents(s));
+		
+		InterfaceFonctionnel lambda = () -> {
+		    System.out.println("Calculatrice");
+		};
+		lambda.show();
+		
 	}
 
 	

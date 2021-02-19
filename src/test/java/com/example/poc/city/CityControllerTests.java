@@ -42,7 +42,7 @@ public class CityControllerTests {
 
 	@MockBean
 	private ICityService cityService;
-
+	
 	@MockBean
 	private IEventCreatorService eventCreatorService;
 

@@ -6,7 +6,7 @@ import com.exemple.poc.client.dto.response.PersonalStatDto;
 
 public interface IPersonalStatService {
 	
-	List<PersonalStatDto> getPersonalStats();
+	List<PersonalStatDto> getPersonalStats(Integer playerId);
 	
 
 

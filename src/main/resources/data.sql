@@ -8,6 +8,8 @@ INSERT INTO t_country (name,codeIso2,codeIso3,nationality,fk_continent_id) VALUE
 INSERT INTO t_city (name,longitude,latitude,county,state,countycode,zip,fk_country_id) VALUES ('Villeurbanne',3.15945,50.72234,'Rhône','Auvergne-Rhône-Alpes',59,59220,(select id from t_country where name = 'France'));
 INSERT INTO t_city (name,longitude,latitude,county,state,countycode,zip,fk_country_id) VALUES ('Starsbourg',3.15945,50.72234,'Alsace','Haut Rhin',59,59220,(select id from t_country where name = 'France'));
 
+INSERT INTO t_arena (name,fk_city_id)  VALUES ('Astroballe',(select id from t_city where name = 'Villeurbanne'));
+
 INSERT INTO t_person (lastname,firstname,birthdate,fk_city_id,fk_nationality1_id)  VALUES ('Cole','Norris',CURRENT_TIMESTAMP,(select id from t_city where name = 'Villeurbanne'),(select id from t_country where name = 'France'));
 INSERT INTO t_person (lastname,firstname,birthdate,fk_city_id,fk_nationality1_id)  VALUES ('Diot','Antoine',CURRENT_TIMESTAMP,(select id from t_city where name = 'Villeurbanne'),(select id from t_country where name = 'France'));
 INSERT INTO t_person (lastname,firstname,birthdate,fk_city_id,fk_nationality1_id)  VALUES ('Kahudi','Charles',CURRENT_TIMESTAMP,(select id from t_city where name = 'Villeurbanne'),(select id from t_country where name = 'France'));

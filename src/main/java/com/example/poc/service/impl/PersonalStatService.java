@@ -17,9 +17,9 @@ public class PersonalStatService implements IPersonalStatService {
 	private NamedParameterJdbcOperations jdbcOperations;
 
 	@Override
-	public List<PersonalStatDto> getPersonalStats() {
+	public List<PersonalStatDto> getPersonalStats(Integer playerId) {
 		StringBuilder query = new StringBuilder();
-		query.append("select 'cole' as lastname, sum(points) as pointsAvg from t_boxline where fk_person_id = 1");
+		query.append("select p.lastname as lastname, sum(b.points) as pointsAvg from t_boxline b inner join t_person p on p.id = b.fk_person_id where p.id = "+playerId);
 		List<PersonalStatDto> p = jdbcOperations.query(query.toString(),new BeanPropertyRowMapper<PersonalStatDto>(PersonalStatDto.class));
 		return p;
 	}

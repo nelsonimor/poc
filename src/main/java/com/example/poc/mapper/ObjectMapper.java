@@ -133,6 +133,7 @@ public class ObjectMapper {
 
 	public static TeamDTO toTeamDto(TeamBO t) {
 		TeamDTO teamDto = new TeamDTO();
+		teamDto.setId(t.getId());
 		teamDto.setName(t.getName());
 		if(t.getCity1()!=null)teamDto.setCityName1(t.getCity1().getName());
 		if(t.getCity2()!=null)teamDto.setCityName2(t.getCity2().getName());

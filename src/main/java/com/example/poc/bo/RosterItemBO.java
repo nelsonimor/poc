@@ -1,6 +1,8 @@
 package com.example.poc.bo;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,7 +32,10 @@ public class RosterItemBO {
 	private Timestamp startdate;
 	
 	private Timestamp enddate;
-
+	
+	@OneToMany(mappedBy="roster")
+	private Set<RosterItemBO> rosterItems;
+	
 	public int getId() {
 		return id;
 	}
@@ -68,6 +74,14 @@ public class RosterItemBO {
 
 	public void setEnddate(Timestamp enddate) {
 		this.enddate = enddate;
+	}
+
+	public Set<RosterItemBO> getRosterItems() {
+		return rosterItems;
+	}
+
+	public void setRosterItems(Set<RosterItemBO> rosterItems) {
+		this.rosterItems = rosterItems;
 	}
 	
 

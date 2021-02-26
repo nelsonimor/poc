@@ -1,6 +1,7 @@
 package com.example.poc.mapper;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -162,6 +163,8 @@ public class ObjectMapper {
 	public static RosterDto toRosterDto(RosterBO rosterBo) {
 		RosterDto rosterDto = new RosterDto();
 		rosterDto.setTeamDto(toTeamDto(rosterBo.getTeam()));
+		rosterDto.setStartdate(new Date(rosterBo.getStartdate().getTime()));
+		rosterDto.setEnddate(new Date(rosterBo.getEnddate().getTime()));
 		for (Iterator iterator = rosterBo.getRosterItems().iterator(); iterator.hasNext();) {
 			RosterItemBO item = (RosterItemBO) iterator.next();
 			rosterDto.addItem(toRosterItemDto(item));
@@ -172,6 +175,8 @@ public class ObjectMapper {
 	public static RosterItemDto toRosterItemDto(RosterItemBO rosterItemBo) {
 		RosterItemDto rosterItemDto = new RosterItemDto();
 		rosterItemDto.setPersonDto(toPersonDTO(rosterItemBo.getPerson()));
+		if(rosterItemBo.getStartdate()!=null)rosterItemDto.setStartdate(new Date(rosterItemBo.getStartdate().getTime()));
+		if(rosterItemBo.getEnddate()!=null)rosterItemDto.setEnddate(new Date(rosterItemBo.getEnddate().getTime()));
 		return rosterItemDto;
 	}
 

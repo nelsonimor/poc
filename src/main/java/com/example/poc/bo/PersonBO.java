@@ -1,6 +1,8 @@
 package com.example.poc.bo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -40,6 +43,9 @@ public class PersonBO extends CoreBO {
 	private CityBO birthplace;
 	
 	private Timestamp birthdate;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "person")
+	private List<RosterItemBO> rosterItems= new ArrayList<RosterItemBO>();
 
 	public int getId() {
 		return this.id;
@@ -95,6 +101,14 @@ public class PersonBO extends CoreBO {
 
 	public void setBirthdate(Timestamp birthdate) {
 		this.birthdate = birthdate;
+	}
+
+	public List<RosterItemBO> getRosterItems() {
+		return rosterItems;
+	}
+
+	public void setRosterItems(List<RosterItemBO> rosterItems) {
+		this.rosterItems = rosterItems;
 	}
 
 

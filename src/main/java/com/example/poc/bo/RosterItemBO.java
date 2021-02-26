@@ -23,7 +23,7 @@ public class RosterItemBO {
 	@JoinColumn(name = "fk_roster_id",nullable = false)
 	private RosterBO roster;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "fk_person_id",nullable = false)
 	private PersonBO person;
 	

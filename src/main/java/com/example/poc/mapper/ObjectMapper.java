@@ -1,17 +1,22 @@
 package com.example.poc.mapper;
 
 import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.Optional;
 
 import com.example.poc.bo.CityBO;
 import com.example.poc.bo.ContinentBO;
 import com.example.poc.bo.CountryBO;
 import com.example.poc.bo.PersonBO;
+import com.example.poc.bo.RosterBO;
+import com.example.poc.bo.RosterItemBO;
 import com.example.poc.bo.TeamBO;
 import com.exemple.poc.client.dto.response.CityDTO;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 import com.exemple.poc.client.dto.response.CountryDTO;
 import com.exemple.poc.client.dto.response.PersonDTO;
+import com.exemple.poc.client.dto.response.RosterDto;
+import com.exemple.poc.client.dto.response.RosterItemDto;
 import com.exemple.poc.client.dto.response.TeamDTO;
 
 import model.Address;
@@ -152,6 +157,22 @@ public class ObjectMapper {
 		if(optCity3.isPresent())teamBO.setCity3(optCity3.get());
 		if(optCountry.isPresent())teamBO.setCountry(optCountry.get());
 		return teamBO;
+	}
+	
+	public static RosterDto toRosterDto(RosterBO rosterBo) {
+		RosterDto rosterDto = new RosterDto();
+		rosterDto.setTeamDto(toTeamDto(rosterBo.getTeam()));
+		for (Iterator iterator = rosterBo.getRosterItems().iterator(); iterator.hasNext();) {
+			RosterItemBO item = (RosterItemBO) iterator.next();
+			rosterDto.addItem(toRosterItemDto(item));
+		}
+		return rosterDto;
+	}
+	
+	public static RosterItemDto toRosterItemDto(RosterItemBO rosterItemBo) {
+		RosterItemDto rosterItemDto = new RosterItemDto();
+		rosterItemDto.setPersonDto(toPersonDTO(rosterItemBo.getPerson()));
+		return rosterItemDto;
 	}
 
 

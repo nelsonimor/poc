@@ -37,7 +37,7 @@ INSERT INTO t_phasis(name,fk_competition_id) VALUES ('Regular Season',(select id
 INSERT INTO t_phasis_organization(fk_phasis_id,startdate,enddate) values ((select id from t_phasis where name = 'Regular Season' AND fk_competition_id in (select id from t_competition where name = 'Euroleague')),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
 INSERT INTO t_phasis_organization(fk_phasis_id,startdate,enddate) values ((select id from t_phasis where name = 'Regular Season' AND fk_competition_id in (select id from t_competition where name = 'Jeep Elite')),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
 
-INSERT INTO t_roster(id,fk_team_id,startdate,enddate) VALUES (1,(select id from t_team where name = 'ASVEL'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+INSERT INTO t_roster(id,fk_team_id,startdate,enddate) VALUES (1,(select id from t_team where name = 'ASVEL'),'2020-01-09','2021-06-30');
 INSERT INTO t_roster(id,fk_team_id,startdate,enddate) VALUES (2,(select id from t_team where name = 'SIG'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
 
 INSERT INTO t_roster_item(fk_roster_id,fk_person_id,startdate,enddate) VALUES (1,(select id from t_person where lastname = 'Cole'),null,null);

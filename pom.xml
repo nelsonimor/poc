@@ -27,8 +27,10 @@
 	<!-- 0.0.11 : fix regex -->
 	<!-- 0.0.12 : add event manager -->
 	<!-- 0.0.13 : add team (get & add) -->
-
-	<version>0.0.13</version>
+	<!-- 0.0.14 : add competition and phasis management -->
+	
+	
+	<version>0.0.14</version>
 	<name>poc</name>
 	<description>Demo project for Spring Boot</description>
 

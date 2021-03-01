@@ -33,7 +33,7 @@ public class PersonDAOTests {
 	  
 	  @Test
 	  public void findAllPersons() {
-		ContinentBO europe = new ContinentBO(1,"EU","Europe");
+		/*ContinentBO europe = new ContinentBO(1,"EU","Europe");
 		CountryBO france = new CountryBO(1, "France", "FR", "FRA", "French", europe);
 		
 		CityBO lille = new CityBO();
@@ -49,10 +49,10 @@ public class PersonDAOTests {
 		person.setBirthplace(lille);
 		person.setNationality1(france);
 
-		personDAO.save(person);
+		personDAO.save(person);*/
 
 	    List<PersonBO> persons = personDAO.findAll();
-	    assertEquals(persons.size(),1);
+	    assertEquals(persons.size(),10);
 	  }
 	  
 	  @Test

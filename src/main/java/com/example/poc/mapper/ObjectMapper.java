@@ -177,6 +177,10 @@ public class ObjectMapper {
 		rosterItemDto.setPersonDto(toPersonDTO(rosterItemBo.getPerson()));
 		if(rosterItemBo.getStartdate()!=null)rosterItemDto.setStartdate(new Date(rosterItemBo.getStartdate().getTime()));
 		if(rosterItemBo.getEnddate()!=null)rosterItemDto.setEnddate(new Date(rosterItemBo.getEnddate().getTime()));
+		rosterItemDto.setRosterId(rosterItemBo.getRoster().getId());
+		rosterItemDto.setTeamName(rosterItemBo.getRoster().getTeam().getName());
+		rosterItemDto.setSeasonStartdate(rosterItemBo.getRoster().getStartdate());
+		rosterItemDto.setSeasonEnddate(rosterItemBo.getRoster().getEnddate());
 		return rosterItemDto;
 	}
 

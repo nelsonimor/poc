@@ -37,25 +37,25 @@ public class CountryController {
 	private ICountryService countryService;
 
 	@ApiOperation("Retrieve all countries")
-	@RequestMapping(value = {"/Countries"},method = {RequestMethod.GET})
+	@RequestMapping(value = {"/countries"},method = {RequestMethod.GET})
 	public List<CountryDTO> getAllCountries() {
 		return countryService.findAllCountries();
 	}
 
 	@ApiOperation("Retrieve countries by name")
-	@GetMapping({"/Countries/name/{name}"})
+	@GetMapping({"/countries/name/{name}"})
 	public CountryDTO getCountryByName(@PathVariable String name) {
 		return countryService.findByName(name);
 	}
 	
 	@ApiOperation("Retrieve countries by continent")
-	@GetMapping({"/Countries/continent/{continentName}"})
+	@GetMapping({"/countries/continent/{continentName}"})
 	public List<CountryDTO> getCountryByContinent(@PathVariable String continentName) {
 		return countryService.findByContinent(continentName);
 	}
 
 	@ApiOperation("Add new country")
-	@PostMapping({"/Countries"})
+	@PostMapping({"/countries"})
 	public ResponseEntity<Void> addCountry(@RequestBody @Valid CountryDTO country) throws AlreadyExistsException,NotFoundException  {
 		CountryDTO newCountryDTO = countryService.addCountry(country);
 		URI location = ServletUriComponentsBuilder
@@ -67,7 +67,7 @@ public class CountryController {
 	}
 	
 	@ApiOperation("Retrieve countries by name like")
-	@GetMapping({"/Countries/likeName/{name}"})
+	@GetMapping({"/countries/likeName/{name}"})
 	public List<CountryDTO> getCountriesByLikeName(@PathVariable String name) {
 		return countryService.getCountriesByLikeName(name);
 	}

@@ -41,38 +41,38 @@ public class ContinentController {
 	private IContinentService continentService;
 
 	@ApiOperation("Retrieve all continents")
-	@RequestMapping(value = {"/Continents"},method = {RequestMethod.GET})
+	@RequestMapping(value = {"/continents"},method = {RequestMethod.GET})
 	public List<ContinentDTO> getAllContinents() {
 		return continentService.findAllContinents();
 	}
 
 	@ApiOperation("Retrieve continent by id")
-	@GetMapping({"/Continents/id/{id}"})
+	@GetMapping({"/continents/id/{id}"})
 	public ContinentDTO getContinentById(@PathVariable int id) throws NotFoundException {
 		ContinentDTO result = continentService.findById(id);
 		return result;
 	}
 
 	@ApiOperation("Retrieve continents by name")
-	@GetMapping({"/Continents/name/{name}"})
+	@GetMapping({"/continents/name/{name}"})
 	public ContinentDTO getContinentByName(@PathVariable String name) {
 		return continentService.findByName(name);
 	}
 	
 	@ApiOperation("Retrieve continents by code")
-	@GetMapping({"/Continents/code/{code}"})
+	@GetMapping({"/continents/code/{code}"})
 	public ContinentDTO getContinentByCode(@PathVariable String code) {
 		return continentService.findByCode(code);
 	}
 
 	@ApiOperation("Retrieve continents by request")
-	@RequestMapping("/Continents/request")
+	@RequestMapping("/continents/request")
 	public List<ContinentDTO> getContinentByRequest(ContinentRequest continentRequest) {
 		return continentService.findByRequest(continentRequest);
 	}
 
 	@ApiOperation("Add new continent")
-	@PostMapping({"/Continents"})
+	@PostMapping({"/continents"})
 	public ResponseEntity<Void> addContinent(@RequestBody @Valid ContinentDTO continent) throws AlreadyExistsException  {
 		ContinentDTO newContinentDTO = continentService.addContinent(continent);
 		URI location = ServletUriComponentsBuilder
@@ -84,12 +84,12 @@ public class ContinentController {
 	}
 
 	@ApiOperation("Delete continent")
-	@DeleteMapping({"/Continents/{id}"})
+	@DeleteMapping({"/continents/{id}"})
 	public void deleteContinentById(@PathVariable int id)  throws NotFoundException {
 		continentService.deleteById(id);
 	}
 
-	@PutMapping({"/Continents/{id}"})
+	@PutMapping({"/continents/{id}"})
 	public ResponseEntity<ContinentDTO> updateContinent(@RequestBody ContinentDTO continent, @PathVariable int id) throws NotFoundException {
 		ContinentDTO dto = continentService.updateContinent(continent, id);
 		return ResponseEntity.noContent().build();

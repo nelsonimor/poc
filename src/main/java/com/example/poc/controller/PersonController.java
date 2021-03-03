@@ -31,17 +31,17 @@ public class PersonController {
 	private IPersonService personService;
 
 	@ApiOperation("Retrieve persons")
-	@RequestMapping(value = {"/Persons"},method = {RequestMethod.GET})
+	@RequestMapping(value = {"/persons"},method = {RequestMethod.GET})
 	public List<PersonDTO> findAllPersons() {
 		return personService.findAllPersons();
 	}
 
-	@GetMapping({"/Persons/{id}"})
+	@GetMapping({"/persons/{id}"})
 	public PersonDTO findPersonById(@PathVariable int id) {
 		return personService.findPersonById(id);
 	}
 
-	@PostMapping({"/Persons"})
+	@PostMapping({"/persons"})
 	public ResponseEntity<Void> addPerson(@RequestBody @Valid PersonDTO person) throws Exception {
 		PersonDTO newPersonDTO = personService.addPerson(person);
 		URI location = ServletUriComponentsBuilder
@@ -52,12 +52,12 @@ public class PersonController {
 		return ResponseEntity.created(location).build();
 	}
 
-	@DeleteMapping({"/Persons/{id}"})
+	@DeleteMapping({"/persons/{id}"})
 	public void deletePersonById(@PathVariable int id) {
 		personService.deletePerson(id);
 	}
 
-	@PutMapping({"/Persons/{id}"})
+	@PutMapping({"/persons/{id}"})
 	public ResponseEntity<PersonBO> updatePerson(@RequestBody PersonBO person, @PathVariable int id) {
 		/*PersonBO p = this.personDAO.findById(id);
 		if (p == null) {

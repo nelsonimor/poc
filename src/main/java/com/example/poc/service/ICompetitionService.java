@@ -2,10 +2,10 @@ package com.example.poc.service;
 
 import java.util.List;
 
-import com.example.poc.bo.CompetitionBO;
+import com.exemple.poc.client.dto.response.CompetitionDto;
 
 public interface ICompetitionService {
 	
-	List<CompetitionBO> findAll();
+	List<CompetitionDto> findAll();
 	
 }

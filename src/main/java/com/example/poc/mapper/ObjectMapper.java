@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Optional;
 
 import com.example.poc.bo.CityBO;
+import com.example.poc.bo.CompetitionBO;
+import com.example.poc.bo.CompetitionOrganizationBO;
 import com.example.poc.bo.ContinentBO;
 import com.example.poc.bo.CountryBO;
 import com.example.poc.bo.PersonBO;
@@ -13,6 +15,8 @@ import com.example.poc.bo.RosterBO;
 import com.example.poc.bo.RosterItemBO;
 import com.example.poc.bo.TeamBO;
 import com.exemple.poc.client.dto.response.CityDTO;
+import com.exemple.poc.client.dto.response.CompetitionDto;
+import com.exemple.poc.client.dto.response.CompetitionOrganizationDto;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 import com.exemple.poc.client.dto.response.CountryDTO;
 import com.exemple.poc.client.dto.response.PersonDTO;
@@ -182,6 +186,24 @@ public class ObjectMapper {
 		rosterItemDto.setSeasonStartdate(rosterItemBo.getRoster().getStartdate());
 		rosterItemDto.setSeasonEnddate(rosterItemBo.getRoster().getEnddate());
 		return rosterItemDto;
+	}
+
+	public static CompetitionDto toCompetitionDto(CompetitionBO c) {
+		CompetitionDto competitionDto = new CompetitionDto();
+		competitionDto.setId(c.getId());
+		competitionDto.setName(c.getName());
+		competitionDto.setCountry(c.getCountry()!=null?c.getCountry().getName():null);
+		competitionDto.setContient(c.getContinent()!=null?c.getContinent().getName():null);
+		return competitionDto;
+	}
+
+	public static CompetitionOrganizationDto toCompetitionOrganizationDto(CompetitionOrganizationBO c) {
+		CompetitionOrganizationDto competitionOrganizationDto = new CompetitionOrganizationDto();
+		competitionOrganizationDto.setId(c.getId());
+		competitionOrganizationDto.setCompetitionName(c.getCompetition().getName());
+		competitionOrganizationDto.setStartdate(c.getStartdate());
+		competitionOrganizationDto.setEnddate(c.getEnddate());
+		return competitionOrganizationDto;
 	}
 
 

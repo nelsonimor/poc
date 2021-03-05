@@ -23,17 +23,17 @@ public class RosterController {
 	@Autowired
 	private IRosterService rosterService;
 
-	@GetMapping({"/rosters/{id}"})
+	@GetMapping({"/view/rosters/{id}"})
 	public RosterDto findRosterById(@PathVariable int id) {
 		return rosterService.findById(id);
 	}	
 	
-	@GetMapping({"/rosters/team/{teamId}"})
+	@GetMapping({"/view/rosters/team/{teamId}"})
 	public List<RosterDto> findRosterByTeamId(@PathVariable int teamId) {
 		return rosterService.findByTeamId(teamId);
 	}
 	
-	@GetMapping({"/career/person/{playerId}"})
+	@GetMapping({"/view/career/person/{playerId}"})
 	public List<RosterItemDto> findCareer(@PathVariable int playerId) {
 		return rosterService.findByPlayerId(playerId);
 	}

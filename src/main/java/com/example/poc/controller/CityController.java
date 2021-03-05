@@ -34,13 +34,13 @@ public class CityController {
 	private ICityService cityService;
 
 	@ApiOperation("Retrieve all cities")
-	@RequestMapping(value = {"/cities"},method = {RequestMethod.GET})
+	@RequestMapping(value = {"/view/cities"},method = {RequestMethod.GET})
 	public List<CityDTO> getAllCities() {
 		return cityService.findAllCities();
 	}
 	
 	@ApiOperation("Add new city")
-	@PostMapping({"/cities"})
+	@PostMapping({"/admin/cities"})
 	public ResponseEntity<Void> addCity(@RequestBody @Valid CityDTO city) throws AlreadyExistsException,NotFoundException  {
 		CityDTO newCityDTO = cityService.addCity(city);
 		URI location = ServletUriComponentsBuilder

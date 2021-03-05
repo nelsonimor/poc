@@ -28,12 +28,12 @@ public class TeamController {
 	private ITeamService teamService;
 
 	@ApiOperation("Retrieve teams")
-	@RequestMapping(value = {"/teams"},method = {RequestMethod.GET})
+	@RequestMapping(value = {"/view/teams"},method = {RequestMethod.GET})
 	public List<TeamDTO> findAllTeams() {
 		return teamService.findAllTeams();
 	}
 
-	@PostMapping({"/teams"})
+	@PostMapping({"/admin/teams"})
 	public ResponseEntity<Void> addTeam(@RequestBody @Valid TeamDTO team) throws Exception {
 		TeamDTO newTeamDTO = teamService.addTeam(team);
 		URI location = ServletUriComponentsBuilder

@@ -47,32 +47,32 @@ public class ContinentController {
 	}
 
 	@ApiOperation("Retrieve continent by id")
-	@GetMapping({"/continents/id/{id}"})
+	@GetMapping({"/view/continents/id/{id}"})
 	public ContinentDTO getContinentById(@PathVariable int id) throws NotFoundException {
 		ContinentDTO result = continentService.findById(id);
 		return result;
 	}
 
 	@ApiOperation("Retrieve continents by name")
-	@GetMapping({"/continents/name/{name}"})
+	@GetMapping({"/view/continents/name/{name}"})
 	public ContinentDTO getContinentByName(@PathVariable String name) {
 		return continentService.findByName(name);
 	}
 	
 	@ApiOperation("Retrieve continents by code")
-	@GetMapping({"/continents/code/{code}"})
+	@GetMapping({"/view/continents/code/{code}"})
 	public ContinentDTO getContinentByCode(@PathVariable String code) {
 		return continentService.findByCode(code);
 	}
 
 	@ApiOperation("Retrieve continents by request")
-	@RequestMapping("/continents/request")
+	@RequestMapping("/view/continents/request")
 	public List<ContinentDTO> getContinentByRequest(ContinentRequest continentRequest) {
 		return continentService.findByRequest(continentRequest);
 	}
 
 	@ApiOperation("Add new continent")
-	@PostMapping({"/continents"})
+	@PostMapping({"/admin/continents"})
 	public ResponseEntity<Void> addContinent(@RequestBody @Valid ContinentDTO continent) throws AlreadyExistsException  {
 		ContinentDTO newContinentDTO = continentService.addContinent(continent);
 		URI location = ServletUriComponentsBuilder
@@ -84,12 +84,12 @@ public class ContinentController {
 	}
 
 	@ApiOperation("Delete continent")
-	@DeleteMapping({"/continents/{id}"})
+	@DeleteMapping({"/admin/continents/{id}"})
 	public void deleteContinentById(@PathVariable int id)  throws NotFoundException {
 		continentService.deleteById(id);
 	}
 
-	@PutMapping({"/continents/{id}"})
+	@PutMapping({"/admin/continents/{id}"})
 	public ResponseEntity<ContinentDTO> updateContinent(@RequestBody ContinentDTO continent, @PathVariable int id) throws NotFoundException {
 		ContinentDTO dto = continentService.updateContinent(continent, id);
 		return ResponseEntity.noContent().build();

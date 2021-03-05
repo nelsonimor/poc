@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.poc.service.ICompetitionOrganizationService;
+import com.example.poc.service.ICompetitionParticipationService;
 import com.example.poc.service.ICompetitionService;
 import com.exemple.poc.client.dto.response.CompetitionDto;
 import com.exemple.poc.client.dto.response.CompetitionOrganizationDto;
+import com.exemple.poc.client.dto.response.CompetitionParticipationDto;
 
 import io.swagger.annotations.Api;
 
@@ -23,17 +25,25 @@ public class CompetitionController {
 	
 	@Autowired
 	private ICompetitionOrganizationService competitionOrganizationService;
+	
+	@Autowired
+	private ICompetitionParticipationService competitionParticipationService;
 
 
-	@GetMapping({"/competitions"})
+	@GetMapping({"/view/competitions"})
 	public List<CompetitionDto> getAllCompetitions() {
 		return competitionService.findAll();
 	}	
 	
-	@GetMapping({"/competitions/organization/{competitionId}"})
-	public List<CompetitionOrganizationDto> getAllCompetitions(@PathVariable int competitionId) {
+	@GetMapping({"/view/competitions/organization/{competitionId}"})
+	public List<CompetitionOrganizationDto> getCompetitionOrganizationByCompetition(@PathVariable int competitionId) {
 		return competitionOrganizationService.findByCompetition(competitionId);
-	}	
+	}
+	
+	@GetMapping({"/view/competitions/organization/participation/{competitionOrganizationId}"})
+	public List<CompetitionParticipationDto> getCompetitionOrganizationByOrganization(@PathVariable int competitionOrganizationId) {
+		return competitionParticipationService.findByCompetitionOrganization(competitionOrganizationId);
+	}
 	
 
 	

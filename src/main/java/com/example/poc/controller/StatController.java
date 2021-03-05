@@ -25,7 +25,7 @@ public class StatController {
 
 	@ApiOperation("Retrieve stat personal")
 
-	@RequestMapping(value = {"/stats/{playerId}"},method = {RequestMethod.GET})
+	@RequestMapping(value = {"/view/stats/{playerId}"},method = {RequestMethod.GET})
 	public PersonalStatDto getPersonalStats(@PathVariable int playerId) {
 		return personalStatService.getPersonalStats(playerId);
 	}

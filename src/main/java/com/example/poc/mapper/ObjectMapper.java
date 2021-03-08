@@ -12,6 +12,7 @@ import com.example.poc.bo.CompetitionParticipationBO;
 import com.example.poc.bo.ContinentBO;
 import com.example.poc.bo.CountryBO;
 import com.example.poc.bo.PersonBO;
+import com.example.poc.bo.PhasisBO;
 import com.example.poc.bo.RosterBO;
 import com.example.poc.bo.RosterItemBO;
 import com.example.poc.bo.TeamBO;
@@ -22,6 +23,7 @@ import com.exemple.poc.client.dto.response.CompetitionParticipationDto;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 import com.exemple.poc.client.dto.response.CountryDTO;
 import com.exemple.poc.client.dto.response.PersonDTO;
+import com.exemple.poc.client.dto.response.PhasisDTO;
 import com.exemple.poc.client.dto.response.RosterDto;
 import com.exemple.poc.client.dto.response.RosterItemDto;
 import com.exemple.poc.client.dto.response.TeamDTO;
@@ -219,6 +221,15 @@ public class ObjectMapper {
 		competitionParticipationDto.setEnddate(c.getCompetitionOrganization().getEnddate());
 		competitionParticipationDto.setCompetitionOrganizationId(c.getCompetitionOrganization().getId());
 		return competitionParticipationDto;
+	}
+
+	public static PhasisDTO toPhasisDto(PhasisBO phasisBo) {
+		PhasisDTO phasisDto = new PhasisDTO();
+		phasisDto.setId(phasisBo.getId());
+		phasisDto.setName(phasisBo.getName());
+		phasisDto.setCompetitionId(phasisBo.getCompetition().getId());
+		phasisDto.setCompetitionName(phasisBo.getCompetition().getName());
+		return phasisDto;
 	}
 
 

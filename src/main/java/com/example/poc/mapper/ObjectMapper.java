@@ -13,6 +13,8 @@ import com.example.poc.bo.ContinentBO;
 import com.example.poc.bo.CountryBO;
 import com.example.poc.bo.PersonBO;
 import com.example.poc.bo.PhasisBO;
+import com.example.poc.bo.PhasisOrganizationBO;
+import com.example.poc.bo.PhasisParticipationBO;
 import com.example.poc.bo.RosterBO;
 import com.example.poc.bo.RosterItemBO;
 import com.example.poc.bo.TeamBO;
@@ -24,6 +26,8 @@ import com.exemple.poc.client.dto.response.ContinentDTO;
 import com.exemple.poc.client.dto.response.CountryDTO;
 import com.exemple.poc.client.dto.response.PersonDTO;
 import com.exemple.poc.client.dto.response.PhasisDTO;
+import com.exemple.poc.client.dto.response.PhasisOrganizationDto;
+import com.exemple.poc.client.dto.response.PhasisParticipationDto;
 import com.exemple.poc.client.dto.response.RosterDto;
 import com.exemple.poc.client.dto.response.RosterItemDto;
 import com.exemple.poc.client.dto.response.TeamDTO;
@@ -230,6 +234,32 @@ public class ObjectMapper {
 		phasisDto.setCompetitionId(phasisBo.getCompetition().getId());
 		phasisDto.setCompetitionName(phasisBo.getCompetition().getName());
 		return phasisDto;
+	}
+
+	public static PhasisOrganizationDto toPhasisOrganizationDto(PhasisOrganizationBO phasisOrganizationBo) {
+		PhasisOrganizationDto phasisOrganizationDto = new PhasisOrganizationDto();
+		phasisOrganizationDto.setId(phasisOrganizationBo.getId());
+		phasisOrganizationDto.setPhaseId(phasisOrganizationBo.getPhasis().getId());
+		phasisOrganizationDto.setPhaseName(phasisOrganizationBo.getPhasis().getName());
+		phasisOrganizationDto.setCompetitionName(phasisOrganizationBo.getPhasis().getCompetition().getName());
+		phasisOrganizationDto.setCompetitionId(phasisOrganizationBo.getPhasis().getCompetition().getId());
+		phasisOrganizationDto.setStartdate(phasisOrganizationBo.getStartdate());
+		phasisOrganizationDto.setEnddate(phasisOrganizationBo.getEnddate());
+		return phasisOrganizationDto;
+	}
+
+	public static PhasisParticipationDto toPhasisParticipationDto(PhasisParticipationBO phasisParticipationBo) {
+		PhasisParticipationDto phasisParticipationDto = new PhasisParticipationDto();
+		phasisParticipationDto.setId(phasisParticipationBo.getId());
+		phasisParticipationDto.setPhaseId(phasisParticipationBo.getPhasisOrganization().getPhasis().getId());
+		phasisParticipationDto.setPhaseName(phasisParticipationBo.getPhasisOrganization().getPhasis().getName());
+		phasisParticipationDto.setCompetitionName(phasisParticipationBo.getPhasisOrganization().getPhasis().getCompetition().getName());
+		phasisParticipationDto.setCompetitionId(phasisParticipationBo.getPhasisOrganization().getPhasis().getCompetition().getId());
+		phasisParticipationDto.setStartdate(phasisParticipationBo.getPhasisOrganization().getStartdate());
+		phasisParticipationDto.setEnddate(phasisParticipationBo.getPhasisOrganization().getEnddate());
+		phasisParticipationDto.setRosterId(phasisParticipationBo.getRoster().getId());
+		phasisParticipationDto.setTeamName(phasisParticipationBo.getRoster().getTeam().getName());
+		return phasisParticipationDto;
 	}
 
 

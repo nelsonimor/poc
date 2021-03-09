@@ -11,6 +11,7 @@ import com.example.poc.bo.CompetitionOrganizationBO;
 import com.example.poc.bo.CompetitionParticipationBO;
 import com.example.poc.bo.ContinentBO;
 import com.example.poc.bo.CountryBO;
+import com.example.poc.bo.GameBO;
 import com.example.poc.bo.PersonBO;
 import com.example.poc.bo.PhasisBO;
 import com.example.poc.bo.PhasisOrganizationBO;
@@ -24,6 +25,7 @@ import com.exemple.poc.client.dto.response.CompetitionOrganizationDto;
 import com.exemple.poc.client.dto.response.CompetitionParticipationDto;
 import com.exemple.poc.client.dto.response.ContinentDTO;
 import com.exemple.poc.client.dto.response.CountryDTO;
+import com.exemple.poc.client.dto.response.GameDto;
 import com.exemple.poc.client.dto.response.PersonDTO;
 import com.exemple.poc.client.dto.response.PhasisDTO;
 import com.exemple.poc.client.dto.response.PhasisOrganizationDto;
@@ -260,6 +262,28 @@ public class ObjectMapper {
 		phasisParticipationDto.setRosterId(phasisParticipationBo.getRoster().getId());
 		phasisParticipationDto.setTeamName(phasisParticipationBo.getRoster().getTeam().getName());
 		return phasisParticipationDto;
+	}
+
+	public static GameDto toGameDto(GameBO g) {
+		GameDto gameDto = new GameDto();
+		gameDto.setId(g.getId());
+		gameDto.setArenaName(g.getArena().getName());
+		gameDto.setArenaCity(g.getArena().getCity().getName());
+		gameDto.setLocalRosterId(g.getLocalRoster().getId());
+		gameDto.setLocalScore(g.getLocalscore());
+		gameDto.setLocalTeamId(g.getLocalRoster().getTeam().getId());
+		gameDto.setLocalTeamName(g.getLocalRoster().getTeam().getName());
+		gameDto.setVisitRosterId(g.getVisitorRoster().getId());
+		gameDto.setVisitScore(g.getVisitscore());
+		gameDto.setVisitTeamId(g.getVisitorRoster().getTeam().getId());
+		gameDto.setVisitTeamName(g.getVisitorRoster().getTeam().getName());
+		gameDto.setPhaseId(g.getPhasisOrganization().getPhasis().getId());
+		gameDto.setPhasisName(g.getPhasisOrganization().getPhasis().getName());
+		gameDto.setPhasisOrganizationId(g.getPhasisOrganization().getId());
+		gameDto.setGamedate(g.getGamedate());
+		gameDto.setCompetitionId(g.getPhasisOrganization().getPhasis().getCompetition().getId());
+		gameDto.setCompetitionName(g.getPhasisOrganization().getPhasis().getCompetition().getName());
+		return gameDto;
 	}
 
 

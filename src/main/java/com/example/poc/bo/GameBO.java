@@ -38,7 +38,7 @@ public class GameBO {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_arena_id",nullable = false)
-	private GameBO game;
+	private ArenaBO arena;
 
 	public int getId() {
 		return id;
@@ -98,13 +98,15 @@ public class GameBO {
 		this.phasisOrganization = phasisOrganization;
 	}
 
-	public GameBO getGame() {
-		return game;
+	public ArenaBO getArena() {
+		return arena;
 	}
 
-	public void setGame(GameBO game) {
-		this.game = game;
+	public void setArena(ArenaBO arena) {
+		this.arena = arena;
 	}
+
+
 
 
 

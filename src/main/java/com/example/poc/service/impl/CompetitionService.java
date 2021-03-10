@@ -12,7 +12,7 @@ import com.example.poc.bo.CompetitionBO;
 import com.example.poc.dao.ICompetitionDAO;
 import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.ICompetitionService;
-import com.exemple.poc.client.dto.response.CityDTO;
+import com.exemple.poc.client.dto.response.CityDto;
 import com.exemple.poc.client.dto.response.CompetitionDto;
 
 @Service

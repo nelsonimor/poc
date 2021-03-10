@@ -26,7 +26,7 @@ import com.example.poc.client.dto.request.ContinentRequest;
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
 import com.example.poc.service.IContinentService;
-import com.exemple.poc.client.dto.response.ContinentDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,39 +42,39 @@ public class ContinentController {
 
 	@ApiOperation("Retrieve all continents")
 	@RequestMapping(value = {"/continents"},method = {RequestMethod.GET})
-	public List<ContinentDTO> getAllContinents() {
+	public List<ContinentDto> getAllContinents() {
 		return continentService.findAllContinents();
 	}
 
 	@ApiOperation("Retrieve continent by id")
 	@GetMapping({"/view/continents/id/{id}"})
-	public ContinentDTO getContinentById(@PathVariable int id) throws NotFoundException {
-		ContinentDTO result = continentService.findById(id);
+	public ContinentDto getContinentById(@PathVariable int id) throws NotFoundException {
+		ContinentDto result = continentService.findById(id);
 		return result;
 	}
 
 	@ApiOperation("Retrieve continents by name")
 	@GetMapping({"/view/continents/name/{name}"})
-	public ContinentDTO getContinentByName(@PathVariable String name) {
+	public ContinentDto getContinentByName(@PathVariable String name) {
 		return continentService.findByName(name);
 	}
 	
 	@ApiOperation("Retrieve continents by code")
 	@GetMapping({"/view/continents/code/{code}"})
-	public ContinentDTO getContinentByCode(@PathVariable String code) {
+	public ContinentDto getContinentByCode(@PathVariable String code) {
 		return continentService.findByCode(code);
 	}
 
 	@ApiOperation("Retrieve continents by request")
 	@RequestMapping("/view/continents/request")
-	public List<ContinentDTO> getContinentByRequest(ContinentRequest continentRequest) {
+	public List<ContinentDto> getContinentByRequest(ContinentRequest continentRequest) {
 		return continentService.findByRequest(continentRequest);
 	}
 
 	@ApiOperation("Add new continent")
 	@PostMapping({"/admin/continents"})
-	public ResponseEntity<Void> addContinent(@RequestBody @Valid ContinentDTO continent) throws AlreadyExistsException  {
-		ContinentDTO newContinentDTO = continentService.addContinent(continent);
+	public ResponseEntity<Void> addContinent(@RequestBody @Valid ContinentDto continent) throws AlreadyExistsException  {
+		ContinentDto newContinentDTO = continentService.addContinent(continent);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
@@ -90,8 +90,8 @@ public class ContinentController {
 	}
 
 	@PutMapping({"/admin/continents/{id}"})
-	public ResponseEntity<ContinentDTO> updateContinent(@RequestBody ContinentDTO continent, @PathVariable int id) throws NotFoundException {
-		ContinentDTO dto = continentService.updateContinent(continent, id);
+	public ResponseEntity<ContinentDto> updateContinent(@RequestBody ContinentDto continent, @PathVariable int id) throws NotFoundException {
+		ContinentDto dto = continentService.updateContinent(continent, id);
 		return ResponseEntity.noContent().build();
 	}
 

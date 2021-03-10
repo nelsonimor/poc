@@ -17,7 +17,7 @@ import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.IPhasisOrganizationService;
 import com.example.poc.service.IPhasisParticipationService;
 import com.example.poc.service.IPhasisService;
-import com.exemple.poc.client.dto.response.PhasisDTO;
+import com.exemple.poc.client.dto.response.PhasisDto;
 import com.exemple.poc.client.dto.response.PhasisOrganizationDto;
 import com.exemple.poc.client.dto.response.PhasisParticipationDto;
 

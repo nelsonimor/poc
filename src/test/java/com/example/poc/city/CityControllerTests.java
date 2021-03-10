@@ -28,8 +28,8 @@ import com.example.poc.exception.ValidationExceptionHandler;
 import com.example.poc.service.ICityService;
 import com.example.poc.service.IContinentService;
 import com.example.poc.service.IEventCreatorService;
-import com.exemple.poc.client.dto.response.CityDTO;
-import com.exemple.poc.client.dto.response.ContinentDTO;
+import com.exemple.poc.client.dto.response.CityDto;
+import com.exemple.poc.client.dto.response.ContinentDto;
 
 
 
@@ -52,12 +52,12 @@ public class CityControllerTests {
 	@Test
 	public void testFindAllCities() throws Exception {
 
-		CityDTO cityDTO = new CityDTO();
+		CityDto cityDTO = new CityDto();
 		cityDTO.setId(1);
 		cityDTO.setName(cityName);
 		cityDTO.setCountryName(countryName);
 
-		List<CityDTO> mockCities = new ArrayList<CityDTO>();
+		List<CityDto> mockCities = new ArrayList<CityDto>();
 		mockCities.add(cityDTO);
 		Mockito.when(cityService.findAllCities()).thenReturn(mockCities);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Cities").accept(MediaType.APPLICATION_JSON);
@@ -69,7 +69,7 @@ public class CityControllerTests {
 
 	@Test
 	public void testAddCity() throws Exception {
-		CityDTO cityDTO = new CityDTO();
+		CityDto cityDTO = new CityDto();
 		cityDTO.setId(1);
 		cityDTO.setName(cityName);
 		cityDTO.setCountryName(countryName);
@@ -87,7 +87,7 @@ public class CityControllerTests {
 
 	@Test
 	public void testAddCityValidationFailedTooSmall() throws Exception {
-		CityDTO cityDTO = new CityDTO();
+		CityDto cityDTO = new CityDto();
 		cityDTO.setId(1);
 		cityDTO.setName("A");
 		cityDTO.setCountryName(countryName);
@@ -106,7 +106,7 @@ public class CityControllerTests {
 	@Test
 	public void testAddCityValidationFailedWrongPattern() throws Exception {
 		String cityName = "<%UNDEFINED%>";
-		CityDTO cityDTO = getDummyCityDto(cityName);
+		CityDto cityDTO = getDummyCityDto(cityName);
 		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/Cities")
@@ -119,7 +119,7 @@ public class CityControllerTests {
 	@Test
 	public void testAddCityValidationCorrectPattern1() throws Exception {
 		String cityName = "Angoulème";
-		CityDTO cityDTO = getDummyCityDto(cityName);
+		CityDto cityDTO = getDummyCityDto(cityName);
 		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/Cities")
@@ -132,7 +132,7 @@ public class CityControllerTests {
 	@Test
 	public void testAddCityValidationCorrectPattern2() throws Exception {
 		String cityName = "Genéve";
-		CityDTO cityDTO = getDummyCityDto(cityName);
+		CityDto cityDTO = getDummyCityDto(cityName);
 		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/Cities")
@@ -145,7 +145,7 @@ public class CityControllerTests {
 	@Test
 	public void testAddCityValidationCorrectPattern3() throws Exception {
 		String cityName = "Capo d'Orlando";
-		CityDTO cityDTO = getDummyCityDto(cityName);
+		CityDto cityDTO = getDummyCityDto(cityName);
 		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/Cities")
@@ -158,7 +158,7 @@ public class CityControllerTests {
 	@Test
 	public void testAddCityValidationCorrectPattern4() throws Exception {
 		String cityName = "Ceská Lípa";
-		CityDTO cityDTO = getDummyCityDto(cityName);
+		CityDto cityDTO = getDummyCityDto(cityName);
 		Mockito.when(cityService.addCity(Mockito.any())).thenReturn(cityDTO);
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/Cities")
@@ -168,8 +168,8 @@ public class CityControllerTests {
 		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 	}
 
-	private CityDTO getDummyCityDto(String cityName) {
-		CityDTO cityDTO = new CityDTO();
+	private CityDto getDummyCityDto(String cityName) {
+		CityDto cityDTO = new CityDto();
 		cityDTO.setId(1);
 		cityDTO.setName(cityName);
 		cityDTO.setCountryName(countryName);

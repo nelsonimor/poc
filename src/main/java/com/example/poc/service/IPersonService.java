@@ -4,19 +4,19 @@ import java.util.List;
 
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
-import com.exemple.poc.client.dto.response.PersonDTO;
+import com.exemple.poc.client.dto.response.PersonDto;
 
 public interface IPersonService {
 	
-	List<PersonDTO> findAllPersons();
+	List<PersonDto> findAllPersons();
 	
-	PersonDTO findPersonById(int id);
+	PersonDto findPersonById(int id);
 	
-	PersonDTO addPerson(PersonDTO person) throws AlreadyExistsException,NotFoundException;
+	PersonDto addPerson(PersonDto person) throws AlreadyExistsException,NotFoundException;
 	
-	PersonDTO updatePerson(PersonDTO person) throws AlreadyExistsException,NotFoundException;
+	PersonDto updatePerson(PersonDto person) throws AlreadyExistsException,NotFoundException;
 	
-	PersonDTO deletePerson(int id) throws AlreadyExistsException,NotFoundException;
+	PersonDto deletePerson(int id) throws AlreadyExistsException,NotFoundException;
 
 
 }

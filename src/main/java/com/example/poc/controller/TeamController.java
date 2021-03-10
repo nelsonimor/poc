@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.poc.service.ITeamService;
-import com.exemple.poc.client.dto.response.TeamDTO;
+import com.exemple.poc.client.dto.response.TeamDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,13 +29,13 @@ public class TeamController {
 
 	@ApiOperation("Retrieve teams")
 	@RequestMapping(value = {"/view/teams"},method = {RequestMethod.GET})
-	public List<TeamDTO> findAllTeams() {
+	public List<TeamDto> findAllTeams() {
 		return teamService.findAllTeams();
 	}
 
 	@PostMapping({"/admin/teams"})
-	public ResponseEntity<Void> addTeam(@RequestBody @Valid TeamDTO team) throws Exception {
-		TeamDTO newTeamDTO = teamService.addTeam(team);
+	public ResponseEntity<Void> addTeam(@RequestBody @Valid TeamDto team) throws Exception {
+		TeamDto newTeamDTO = teamService.addTeam(team);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")

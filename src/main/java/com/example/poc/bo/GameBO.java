@@ -1,6 +1,8 @@
 package com.example.poc.bo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -39,6 +42,11 @@ public class GameBO {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_arena_id",nullable = false)
 	private ArenaBO arena;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "game")
+	private List<BoxlineBO> boxLines = new ArrayList<BoxlineBO>();
+	
+
 
 	public int getId() {
 		return id;
@@ -104,6 +112,14 @@ public class GameBO {
 
 	public void setArena(ArenaBO arena) {
 		this.arena = arena;
+	}
+
+	public List<BoxlineBO> getBoxLines() {
+		return boxLines;
+	}
+
+	public void setBoxLines(List<BoxlineBO> boxLines) {
+		this.boxLines = boxLines;
 	}
 
 

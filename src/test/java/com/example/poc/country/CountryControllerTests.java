@@ -26,8 +26,8 @@ import com.example.poc.dao.ICustomContinentDAO;
 import com.example.poc.service.IContinentService;
 import com.example.poc.service.ICountryService;
 import com.example.poc.service.IEventCreatorService;
-import com.exemple.poc.client.dto.response.ContinentDTO;
-import com.exemple.poc.client.dto.response.CountryDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
+import com.exemple.poc.client.dto.response.CountryDto;
 
 
 
@@ -56,7 +56,7 @@ public class CountryControllerTests {
 
 	@Test
 	public void testFindAllCountries() throws Exception {
-		CountryDTO mockCountry= new CountryDTO();
+		CountryDto mockCountry= new CountryDto();
 		mockCountry.setId(id);
 		mockCountry.setCodeiso2(codeIso2);
 		mockCountry.setCodeiso3(codeIso3);
@@ -64,7 +64,7 @@ public class CountryControllerTests {
 		mockCountry.setNationality(nationality);
 		mockCountry.setName(name);
 		
-		List<CountryDTO> mockCountries = new ArrayList<CountryDTO>();
+		List<CountryDto> mockCountries = new ArrayList<CountryDto>();
 		mockCountries.add(mockCountry);
 		Mockito.when(countryService.findAllCountries()).thenReturn(mockCountries);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Countries").accept(MediaType.APPLICATION_JSON);
@@ -81,7 +81,7 @@ public class CountryControllerTests {
 
 	@Test
 	public void testFindCountriesByName() throws Exception {
-		CountryDTO mockCountry= new CountryDTO();
+		CountryDto mockCountry= new CountryDto();
 		mockCountry.setId(id);
 		mockCountry.setCodeiso2(codeIso2);
 		mockCountry.setCodeiso3(codeIso3);
@@ -104,7 +104,7 @@ public class CountryControllerTests {
 	
 	@Test
 	public void testAddContinentSuccess() throws Exception {
-		CountryDTO countryDTO = new CountryDTO();
+		CountryDto countryDTO = new CountryDto();
 		countryDTO.setId(1);
 		countryDTO.setNationality("French");
 		countryDTO.setName("France");
@@ -129,7 +129,7 @@ public class CountryControllerTests {
 	
 	@Test
 	public void testAddContinentFailed() throws Exception {
-		CountryDTO countryDTO = new CountryDTO();
+		CountryDto countryDTO = new CountryDto();
 		countryDTO.setId(1);
 		countryDTO.setNationality("French");
 		countryDTO.setName("France (");
@@ -154,7 +154,7 @@ public class CountryControllerTests {
 	
 	@Test
 	public void testAddContinentSuccessWithSpace() throws Exception {
-		CountryDTO countryDTO = new CountryDTO();
+		CountryDto countryDTO = new CountryDto();
 		countryDTO.setId(1);
 		countryDTO.setNationality("American");
 		countryDTO.setName("United States of America");
@@ -179,7 +179,7 @@ public class CountryControllerTests {
 	
 	@Test
 	public void testAddContinentSuccessSpecialChar1() throws Exception {
-		CountryDTO countryDTO = createDummyCountryDto("Curaçao");
+		CountryDto countryDTO = createDummyCountryDto("Curaçao");
 		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/Countries")
@@ -192,7 +192,7 @@ public class CountryControllerTests {
 	
 	@Test
 	public void testAddContinentSuccessSpecialChar2() throws Exception {
-		CountryDTO countryDTO = createDummyCountryDto("Guinea-Bissau");
+		CountryDto countryDTO = createDummyCountryDto("Guinea-Bissau");
 
 		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
 		RequestBuilder request = MockMvcRequestBuilders
@@ -206,7 +206,7 @@ public class CountryControllerTests {
 	
 	@Test
 	public void testAddContinentSuccessSpecialChar3() throws Exception {
-		CountryDTO countryDTO = createDummyCountryDto("Réunion");
+		CountryDto countryDTO = createDummyCountryDto("Réunion");
 
 		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
 		RequestBuilder request = MockMvcRequestBuilders
@@ -220,7 +220,7 @@ public class CountryControllerTests {
 	
 	@Test
 	public void testAddContinentSuccessSpecialChar4() throws Exception {
-		CountryDTO countryDTO = createDummyCountryDto("Svalbard & Jan Mayen Islands");
+		CountryDto countryDTO = createDummyCountryDto("Svalbard & Jan Mayen Islands");
 
 		Mockito.when(countryService.addCountry(Mockito.any())).thenReturn(countryDTO);
 		RequestBuilder request = MockMvcRequestBuilders
@@ -232,8 +232,8 @@ public class CountryControllerTests {
 		mockMvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 	}
 	
-	private CountryDTO createDummyCountryDto(String name) {
-		CountryDTO countryDTO = new CountryDTO();
+	private CountryDto createDummyCountryDto(String name) {
+		CountryDto countryDTO = new CountryDto();
 		countryDTO.setId(1);
 		countryDTO.setName(name);
 		countryDTO.setNationality("dummy");

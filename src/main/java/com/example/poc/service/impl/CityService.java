@@ -19,7 +19,7 @@ import com.example.poc.service.ICityService;
 import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.IGeolocationService;
 import com.example.poc.util.ActionCode;
-import com.exemple.poc.client.dto.response.CityDTO;
+import com.exemple.poc.client.dto.response.CityDto;
 
 import model.Address;
 
@@ -43,16 +43,16 @@ public class CityService implements ICityService {
 	}
 
 	@Override
-	public List<CityDTO> findAllCities() {
+	public List<CityDto> findAllCities() {
 		List<CityBO> cityBos = this.cityDAO.findAll();
-		List<CityDTO> cityDTOs = new ArrayList<CityDTO>();
+		List<CityDto> cityDTOs = new ArrayList<CityDto>();
 		cityBos.stream().forEach((c) -> cityDTOs.add(ObjectMapper.toCityDto(c)));
 		return cityDTOs;
 	}
 
 	@Transactional
 	@Override
-	public CityDTO addCity(CityDTO city) throws AlreadyExistsException, NotFoundException {
+	public CityDto addCity(CityDto city) throws AlreadyExistsException, NotFoundException {
 		Optional<CountryBO> countryBO = countryDAO.findByName(city.getCountryName());
 		if(!countryBO.isPresent()) {
 			eventCreatorService.createEventFailure(ActionCode.CITY_ADD_FAILED_UNKNOWN_COUNTRY,new Object[] {city.getCountryName()});
@@ -77,7 +77,7 @@ public class CityService implements ICityService {
 		}
 		
 		CityBO cityBOAdded = (CityBO)this.cityDAO.save(cityBO);
-		CityDTO cityDTO = ObjectMapper.toCityDto(cityBOAdded);
+		CityDto cityDTO = ObjectMapper.toCityDto(cityBOAdded);
 		eventCreatorService.createEventSuccess(ActionCode.CITY_ADD_SUCCESS,new Object[] {cityBOAdded.getName(),cityBOAdded.getId()});
 		return cityDTO;
 	}

@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
-import com.exemple.poc.client.dto.response.CityDTO;
+import com.exemple.poc.client.dto.response.CityDto;
 
 public interface ICityService {
 	
-	List<CityDTO> findAllCities();
+	List<CityDto> findAllCities();
 	
-	CityDTO addCity(CityDTO city) throws AlreadyExistsException,NotFoundException;
+	CityDto addCity(CityDto city) throws AlreadyExistsException,NotFoundException;
 
 
 }

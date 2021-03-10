@@ -5,26 +5,26 @@ import java.util.List;
 import com.example.poc.client.dto.request.ContinentRequest;
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
-import com.exemple.poc.client.dto.response.ContinentDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
 
 public interface IContinentService {
 	
-	List<ContinentDTO> findAllContinents();
+	List<ContinentDto> findAllContinents();
 	
-	ContinentDTO findById(int id) throws NotFoundException;
+	ContinentDto findById(int id) throws NotFoundException;
 	
-	ContinentDTO findByName(String name);
+	ContinentDto findByName(String name);
 	
-	ContinentDTO findByCode(String code);
+	ContinentDto findByCode(String code);
 	
-	List<ContinentDTO> findByRequest(ContinentRequest continentRequest);
+	List<ContinentDto> findByRequest(ContinentRequest continentRequest);
 	
-	ContinentDTO addContinent(ContinentDTO continent) throws AlreadyExistsException;
+	ContinentDto addContinent(ContinentDto continent) throws AlreadyExistsException;
 	
 	String get();
 	
 	void deleteById(int id) throws NotFoundException;
 	
-	ContinentDTO updateContinent(ContinentDTO continent,int id) throws NotFoundException;
+	ContinentDto updateContinent(ContinentDto continent,int id) throws NotFoundException;
 	
 }

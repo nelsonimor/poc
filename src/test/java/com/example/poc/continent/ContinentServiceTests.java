@@ -27,7 +27,7 @@ import com.example.poc.exception.NotFoundException;
 import com.example.poc.service.IContinentService;
 import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.impl.ContinentService;
-import com.exemple.poc.client.dto.response.ContinentDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -109,7 +109,7 @@ public class ContinentServiceTests {
 	@DisplayName("Continent : add continent")
     @Test
     void testAddContinent() {
-		ContinentDTO dto = continentService.addContinent(new ContinentDTO(1, "AF", "Africa"));
+		ContinentDto dto = continentService.addContinent(new ContinentDto(1, "AF", "Africa"));
 		Assertions.assertNotNull(dto);
     }
 	
@@ -117,7 +117,7 @@ public class ContinentServiceTests {
     @Test
     void testAddContinentAlreadyExists() {
         Assertions.assertThrows(AlreadyExistsException.class, () -> {
-        	continentService.addContinent(new ContinentDTO(1, "EU", "Europe"));
+        	continentService.addContinent(new ContinentDto(1, "EU", "Europe"));
           });
     }
 

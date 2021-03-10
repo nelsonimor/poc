@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.poc.service.IPhasisOrganizationService;
 import com.example.poc.service.IPhasisParticipationService;
 import com.example.poc.service.IPhasisService;
-import com.exemple.poc.client.dto.response.PhasisDTO;
+import com.exemple.poc.client.dto.response.PhasisDto;
 import com.exemple.poc.client.dto.response.PhasisOrganizationDto;
 import com.exemple.poc.client.dto.response.PhasisParticipationDto;
 
@@ -30,12 +30,12 @@ public class PhasisController {
 	private IPhasisParticipationService phasisParticipationService;
 	
 	@GetMapping({"/view/phasis"})
-	public List<PhasisDTO> findAllPhasis() {
+	public List<PhasisDto> findAllPhasis() {
 		return phasisService.findAll();
 	}	
 
 	@GetMapping({"/view/phasis/{id}"})
-	public PhasisDTO findPhasisById(@PathVariable int id) {
+	public PhasisDto findPhasisById(@PathVariable int id) {
 		return phasisService.findById(id);
 	}
 	

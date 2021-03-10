@@ -1,10 +1,13 @@
 package com.example.poc.mapper;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
+import com.example.poc.bo.BoxlineBO;
 import com.example.poc.bo.CityBO;
 import com.example.poc.bo.CompetitionBO;
 import com.example.poc.bo.CompetitionOrganizationBO;
@@ -19,36 +22,37 @@ import com.example.poc.bo.PhasisParticipationBO;
 import com.example.poc.bo.RosterBO;
 import com.example.poc.bo.RosterItemBO;
 import com.example.poc.bo.TeamBO;
-import com.exemple.poc.client.dto.response.CityDTO;
+import com.exemple.poc.client.dto.response.BoxlineDto;
+import com.exemple.poc.client.dto.response.CityDto;
 import com.exemple.poc.client.dto.response.CompetitionDto;
 import com.exemple.poc.client.dto.response.CompetitionOrganizationDto;
 import com.exemple.poc.client.dto.response.CompetitionParticipationDto;
-import com.exemple.poc.client.dto.response.ContinentDTO;
-import com.exemple.poc.client.dto.response.CountryDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
+import com.exemple.poc.client.dto.response.CountryDto;
 import com.exemple.poc.client.dto.response.GameDto;
-import com.exemple.poc.client.dto.response.PersonDTO;
-import com.exemple.poc.client.dto.response.PhasisDTO;
+import com.exemple.poc.client.dto.response.PersonDto;
+import com.exemple.poc.client.dto.response.PhasisDto;
 import com.exemple.poc.client.dto.response.PhasisOrganizationDto;
 import com.exemple.poc.client.dto.response.PhasisParticipationDto;
 import com.exemple.poc.client.dto.response.RosterDto;
 import com.exemple.poc.client.dto.response.RosterItemDto;
-import com.exemple.poc.client.dto.response.TeamDTO;
+import com.exemple.poc.client.dto.response.TeamDto;
 
 import model.Address;
 
 
 public class ObjectMapper {
 
-	public static ContinentDTO toContinentDto(ContinentBO continentBO) {
+	public static ContinentDto toContinentDto(ContinentBO continentBO) {
 		if(continentBO==null)return null;
-		ContinentDTO continentDTO = new ContinentDTO();
+		ContinentDto continentDTO = new ContinentDto();
 		continentDTO.setId(continentBO.getId());
 		continentDTO.setName(continentBO.getName());
 		continentDTO.setCode(continentBO.getCode());
 		return continentDTO;
 	}
 
-	public static ContinentBO toContinentBo(ContinentDTO continentDTO) {
+	public static ContinentBO toContinentBo(ContinentDto continentDTO) {
 		if(continentDTO==null)return null;
 		ContinentBO continentBO = new ContinentBO();
 		continentBO.setId(continentDTO.getId());
@@ -57,9 +61,9 @@ public class ObjectMapper {
 		return continentBO;
 	}
 
-	public static CountryDTO toCountryDto(CountryBO countryBO) {
+	public static CountryDto toCountryDto(CountryBO countryBO) {
 		if(countryBO==null)return null;
-		CountryDTO countryDTO = new CountryDTO();
+		CountryDto countryDTO = new CountryDto();
 		countryDTO.setId(countryBO.getId());
 		countryDTO.setName(countryBO.getName());
 		countryDTO.setCodeiso2(countryBO.getCodeiso2());
@@ -69,7 +73,7 @@ public class ObjectMapper {
 		return countryDTO;
 	}
 
-	public static CountryBO toCountryBO(CountryDTO countryDTO, ContinentBO continentBO) {
+	public static CountryBO toCountryBO(CountryDto countryDTO, ContinentBO continentBO) {
 		if(countryDTO==null)return null;
 		CountryBO countryBO = new CountryBO();
 		countryBO.setId(countryDTO.getId());
@@ -81,9 +85,9 @@ public class ObjectMapper {
 		return countryBO;
 	}
 
-	public static CityDTO toCityDto(CityBO cityBO) {
+	public static CityDto toCityDto(CityBO cityBO) {
 		if(cityBO==null)return null;
-		CityDTO cityDTO = new CityDTO();
+		CityDto cityDTO = new CityDto();
 		cityDTO.setId(cityBO.getId());
 		cityDTO.setName(cityBO.getName());
 		cityDTO.setCounty(cityBO.getCounty());
@@ -95,7 +99,7 @@ public class ObjectMapper {
 		return cityDTO;
 	}
 
-	public static CityBO toCityBO(CityDTO cityDTO, CountryBO countryBO) {
+	public static CityBO toCityBO(CityDto cityDTO, CountryBO countryBO) {
 		if(cityDTO==null)return null;
 		CityBO cityBO = new CityBO();
 		cityBO.setId(cityDTO.getId());
@@ -123,8 +127,8 @@ public class ObjectMapper {
 		return cityBO;
 	}
 	
-	public static PersonDTO toPersonDTO(PersonBO personBO) {
-		PersonDTO personDto = new PersonDTO();
+	public static PersonDto toPersonDTO(PersonBO personBO) {
+		PersonDto personDto = new PersonDto();
 		personDto.setFirstname(personBO.getFirstname());
 		personDto.setLastname(personBO.getLastname());
 		personDto.setBirthCityPlace(personBO.getBirthplace().getName());
@@ -137,7 +141,7 @@ public class ObjectMapper {
 		return personDto;
 	}
 
-	public static PersonBO toPersonBO(PersonDTO person,CountryBO nationality1,Optional<CountryBO> nationality2,CityBO birthplace) {
+	public static PersonBO toPersonBO(PersonDto person,CountryBO nationality1,Optional<CountryBO> nationality2,CityBO birthplace) {
 		PersonBO personBO = new PersonBO();
 		personBO.setId(person.getId());
 		personBO.setFirstname(person.getFirstname());
@@ -151,8 +155,8 @@ public class ObjectMapper {
 		return personBO;
 	}
 
-	public static TeamDTO toTeamDto(TeamBO t) {
-		TeamDTO teamDto = new TeamDTO();
+	public static TeamDto toTeamDto(TeamBO t) {
+		TeamDto teamDto = new TeamDto();
 		teamDto.setId(t.getId());
 		teamDto.setName(t.getName());
 		if(t.getCity1()!=null)teamDto.setCityName1(t.getCity1().getName());
@@ -163,7 +167,7 @@ public class ObjectMapper {
 		return teamDto;
 	}
 
-	public static TeamBO toTeamBO(TeamDTO teamDto, Optional<CityBO> optCity1, Optional<CityBO> optCity2, Optional<CityBO> optCity3, Optional<CountryBO> optCountry) {
+	public static TeamBO toTeamBO(TeamDto teamDto, Optional<CityBO> optCity1, Optional<CityBO> optCity2, Optional<CityBO> optCity3, Optional<CountryBO> optCountry) {
 		TeamBO teamBO = new TeamBO();
 		teamBO.setName(teamDto.getName());
 		teamBO.setType(teamDto.getType());
@@ -229,8 +233,8 @@ public class ObjectMapper {
 		return competitionParticipationDto;
 	}
 
-	public static PhasisDTO toPhasisDto(PhasisBO phasisBo) {
-		PhasisDTO phasisDto = new PhasisDTO();
+	public static PhasisDto toPhasisDto(PhasisBO phasisBo) {
+		PhasisDto phasisDto = new PhasisDto();
 		phasisDto.setId(phasisBo.getId());
 		phasisDto.setName(phasisBo.getName());
 		phasisDto.setCompetitionId(phasisBo.getCompetition().getId());
@@ -264,7 +268,7 @@ public class ObjectMapper {
 		return phasisParticipationDto;
 	}
 
-	public static GameDto toGameDto(GameBO g) {
+	public static GameDto toGameDto(GameBO g,boolean withBoxscore) {
 		GameDto gameDto = new GameDto();
 		gameDto.setId(g.getId());
 		gameDto.setArenaName(g.getArena().getName());
@@ -283,7 +287,36 @@ public class ObjectMapper {
 		gameDto.setGamedate(g.getGamedate());
 		gameDto.setCompetitionId(g.getPhasisOrganization().getPhasis().getCompetition().getId());
 		gameDto.setCompetitionName(g.getPhasisOrganization().getPhasis().getCompetition().getName());
+		
+		if (withBoxscore) {
+			List<BoxlineDto> localBoxlines = new ArrayList<BoxlineDto>();
+			List<BoxlineDto> visitBoxlines = new ArrayList<BoxlineDto>();
+			
+			for (Iterator iterator = g.getBoxLines().iterator(); iterator.hasNext();) {
+				BoxlineBO boxlineBo = (BoxlineBO) iterator.next();
+				if(boxlineBo.getRoster().getId() == g.getLocalRoster().getId()) {
+					localBoxlines.add(toBoxlineDto(boxlineBo));
+				}
+				else if(boxlineBo.getRoster().getId() == g.getVisitorRoster().getId()) {
+					visitBoxlines.add(toBoxlineDto(boxlineBo));
+				}
+			}
+			
+			gameDto.setLocalBoxlines(localBoxlines);
+			gameDto.setVisitBoxlines(visitBoxlines);
+		}
+		
 		return gameDto;
+	}
+	
+	public static BoxlineDto toBoxlineDto(BoxlineBO boxlineBo) {
+		BoxlineDto boxlineDto = new BoxlineDto();
+		boxlineDto.setId(boxlineBo.getId());
+		boxlineDto.setFirstname(boxlineBo.getPerson().getFirstname());
+		boxlineDto.setLastname(boxlineBo.getPerson().getLastname());
+		boxlineDto.setPoints(boxlineBo.getPoints());
+		boxlineDto.setTeamname(boxlineBo.getRoster().getTeam().getName());
+		return boxlineDto;
 	}
 
 

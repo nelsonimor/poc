@@ -19,7 +19,7 @@ import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.IContinentService;
 import com.example.poc.service.IEventCreatorService;
 import com.example.poc.util.ActionCode;
-import com.exemple.poc.client.dto.response.ContinentDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
 
 @Service
 public class ContinentService implements IContinentService {
@@ -39,10 +39,10 @@ public class ContinentService implements IContinentService {
 	}
 
 	@Override
-	public List<ContinentDTO> findAllContinents() {
+	public List<ContinentDto> findAllContinents() {
 		List<ContinentBO> continentBOs = this.continentDAO.findAll();
 		
-		List<ContinentDTO> continentDTOs = new ArrayList<ContinentDTO>();
+		List<ContinentDto> continentDTOs = new ArrayList<ContinentDto>();
 		continentBOs.stream().forEach(c -> {
 			continentDTOs.add(ObjectMapper.toContinentDto(c));
 		});
@@ -50,7 +50,7 @@ public class ContinentService implements IContinentService {
 	}
 
 	@Override
-	public ContinentDTO findById(int id) throws NotFoundException {
+	public ContinentDto findById(int id) throws NotFoundException {
 		Optional<ContinentBO> continentBO = this.continentDAO.findById(id);
 		System.out.println("-> ContinentService.findById() : id = "+id+" - valuer = "+continentBO);
 		if(!continentBO.isPresent()) {
@@ -60,28 +60,28 @@ public class ContinentService implements IContinentService {
 	}
 
 	@Override
-	public ContinentDTO findByName(String name) {
+	public ContinentDto findByName(String name) {
 		Optional<ContinentBO> continentBOs = this.continentDAO.findByName(name);
 		return ObjectMapper.toContinentDto(continentBOs.get());
 	}
 
 	@Override
-	public ContinentDTO findByCode(String code) {
+	public ContinentDto findByCode(String code) {
 		Optional<ContinentBO> continentBO = this.continentDAO.findByCode(code);
 		return ObjectMapper.toContinentDto(continentBO.get());
 	}
 
 	@Override
-	public List<ContinentDTO> findByRequest(ContinentRequest continentRequest) {
+	public List<ContinentDto> findByRequest(ContinentRequest continentRequest) {
 		List<ContinentBO> continentBOs = this.customContinentDAO.findContinents(continentRequest);
-		List<ContinentDTO> continentDTOs = new ArrayList<ContinentDTO>();
+		List<ContinentDto> continentDTOs = new ArrayList<ContinentDto>();
 		continentBOs.stream().forEach((c) -> continentDTOs.add(ObjectMapper.toContinentDto(c)));
 		return continentDTOs;
 	}
 
 	@Transactional
 	@Override
-	public ContinentDTO addContinent(ContinentDTO continent) throws AlreadyExistsException {
+	public ContinentDto addContinent(ContinentDto continent) throws AlreadyExistsException {
 		
 		Optional<ContinentBO> c = this.continentDAO.findByNameAndCode(continent.getName(), continent.getCode());
 		if(c.isPresent()) {
@@ -110,7 +110,7 @@ public class ContinentService implements IContinentService {
 	}
 
 	@Override
-	public ContinentDTO updateContinent(ContinentDTO continent, int id) throws NotFoundException {
+	public ContinentDto updateContinent(ContinentDto continent, int id) throws NotFoundException {
 		Optional<ContinentBO> continentBO = this.continentDAO.findById(id);
 		if(!continentBO.isPresent()) {
 			throw new NotFoundException("No continent found with id = "+id);

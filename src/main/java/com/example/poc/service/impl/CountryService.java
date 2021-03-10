@@ -19,7 +19,7 @@ import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.ICountryService;
 import com.example.poc.service.IEventCreatorService;
 import com.example.poc.util.ActionCode;
-import com.exemple.poc.client.dto.response.CountryDTO;
+import com.exemple.poc.client.dto.response.CountryDto;
 
 @Service
 public class CountryService implements ICountryService {
@@ -38,22 +38,22 @@ public class CountryService implements ICountryService {
 	}
 
 	@Override
-	public List<CountryDTO> findAllCountries() {
+	public List<CountryDto> findAllCountries() {
 		List<CountryBO> countryBos = this.countryDAO.findAll();
-		List<CountryDTO> countryDTOs = new ArrayList<CountryDTO>();
+		List<CountryDto> countryDTOs = new ArrayList<CountryDto>();
 		countryBos.stream().forEach((c) -> countryDTOs.add(ObjectMapper.toCountryDto(c)));
 		return countryDTOs;
 	}
 
 	@Override
-	public CountryDTO findByName(String name) {
+	public CountryDto findByName(String name) {
 		Optional<CountryBO> countryBO = this.countryDAO.findByName(name);
 		return ObjectMapper.toCountryDto(countryBO.get());
 	}
 
 	@Transactional
 	@Override
-	public CountryDTO addCountry(CountryDTO country) throws AlreadyExistsException, NotFoundException {
+	public CountryDto addCountry(CountryDto country) throws AlreadyExistsException, NotFoundException {
 		
 		Optional<CountryBO> c = this.countryDAO.findByName(country.getName());
 		if(c.isPresent()) {
@@ -75,7 +75,7 @@ public class CountryService implements ICountryService {
 	}
 
 	@Override
-	public List<CountryDTO> findByContinent(String continentName) throws NotFoundException {
+	public List<CountryDto> findByContinent(String continentName) throws NotFoundException {
 		
 		Optional<ContinentBO> continent = continentDAO.findByName(continentName);
 		if(!continent.isPresent()) {
@@ -83,16 +83,16 @@ public class CountryService implements ICountryService {
 		}
 		
 		List<CountryBO> countryBos = countryDAO.findByContinent(continent.get());
-		List<CountryDTO> countryDTOs = new ArrayList<CountryDTO>();
+		List<CountryDto> countryDTOs = new ArrayList<CountryDto>();
 		countryBos.stream().forEach((c) -> countryDTOs.add(ObjectMapper.toCountryDto(c)));
 		return countryDTOs;
 	}
 	
 	@Override
-	public List<CountryDTO> getCountriesByLikeName(String name) {
+	public List<CountryDto> getCountriesByLikeName(String name) {
 		List<CountryBO> countryBOs = this.countryDAO.findAll();
 
-		List<CountryDTO> countryDTOs = new ArrayList<CountryDTO>();
+		List<CountryDto> countryDTOs = new ArrayList<CountryDto>();
 		countryBOs
 		.stream()
 		.filter(c -> c.getName().contains(name))

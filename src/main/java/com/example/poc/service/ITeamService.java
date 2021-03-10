@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
-import com.exemple.poc.client.dto.response.CityDTO;
-import com.exemple.poc.client.dto.response.TeamDTO;
+import com.exemple.poc.client.dto.response.CityDto;
+import com.exemple.poc.client.dto.response.TeamDto;
 
 public interface ITeamService {
 	
-	List<TeamDTO> findAllTeams();
+	List<TeamDto> findAllTeams();
 	
-	TeamDTO addTeam(TeamDTO team) throws AlreadyExistsException,NotFoundException;
+	TeamDto addTeam(TeamDto team) throws AlreadyExistsException,NotFoundException;
 
 
 }

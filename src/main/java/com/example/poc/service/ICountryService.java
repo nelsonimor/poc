@@ -4,18 +4,18 @@ import java.util.List;
 
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
-import com.exemple.poc.client.dto.response.ContinentDTO;
-import com.exemple.poc.client.dto.response.CountryDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
+import com.exemple.poc.client.dto.response.CountryDto;
 
 public interface ICountryService {
 	
-	List<CountryDTO> findAllCountries();
+	List<CountryDto> findAllCountries();
 
-	CountryDTO findByName(String name);
+	CountryDto findByName(String name);
 	
-	List<CountryDTO> findByContinent(String continentName) throws NotFoundException;
+	List<CountryDto> findByContinent(String continentName) throws NotFoundException;
 	
-	CountryDTO addCountry(CountryDTO country) throws AlreadyExistsException,NotFoundException;
+	CountryDto addCountry(CountryDto country) throws AlreadyExistsException,NotFoundException;
 	
-	List<CountryDTO> getCountriesByLikeName(String name);
+	List<CountryDto> getCountriesByLikeName(String name);
 }

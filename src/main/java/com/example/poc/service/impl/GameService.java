@@ -22,7 +22,7 @@ import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.IGameService;
 import com.example.poc.service.IRosterService;
 import com.exemple.poc.client.dto.response.GameDto;
-import com.exemple.poc.client.dto.response.PersonDTO;
+import com.exemple.poc.client.dto.response.PersonDto;
 import com.exemple.poc.client.dto.response.RosterDto;
 import com.exemple.poc.client.dto.response.RosterItemDto;
 
@@ -35,14 +35,14 @@ public class GameService implements IGameService {
 	@Override
 	public GameDto findById(int id) {
 		Optional<GameBO> gameBO = gameDao.findById(id);
-		return ObjectMapper.toGameDto(gameBO.get());
+		return ObjectMapper.toGameDto(gameBO.get(),true);
 	}
 
 	@Override
 	public List<GameDto> findAll() {
 		List<GameBO> gameBOs = gameDao.findAll();
 		List<GameDto> gameDTOs = new ArrayList<GameDto>();
-		gameBOs.stream().forEach((c) -> gameDTOs.add(ObjectMapper.toGameDto(c)));
+		gameBOs.stream().forEach((c) -> gameDTOs.add(ObjectMapper.toGameDto(c,false)));
 		return gameDTOs;
 	}
 	

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.poc.service.IEventCreatorService;
-import com.exemple.poc.client.dto.response.EventDTO;
+import com.exemple.poc.client.dto.response.EventDto;
 
 @Service
 public class EventCreatorService implements IEventCreatorService {
@@ -27,11 +27,11 @@ public class EventCreatorService implements IEventCreatorService {
 	
 	public void createEvent(String code,Object[] messageParams,String nature) {
 		String msg = messageSource.getMessage("msg."+code,messageParams, Locale.getDefault());
-		EventDTO eventDTO = new EventDTO();
+		EventDto eventDTO = new EventDto();
 		eventDTO.setCode("EVT-"+code);
 		eventDTO.setMessage(msg);
 		eventDTO.setNature(nature);
-		restTemplate.postForEntity(endPointEvent, eventDTO, EventDTO.class);
+		restTemplate.postForEntity(endPointEvent, eventDTO, EventDto.class);
 	}
 	
 	@Bean

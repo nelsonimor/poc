@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
 import com.example.poc.service.ICityService;
-import com.exemple.poc.client.dto.response.CityDTO;
+import com.exemple.poc.client.dto.response.CityDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,14 +35,14 @@ public class CityController {
 
 	@ApiOperation("Retrieve all cities")
 	@RequestMapping(value = {"/view/cities"},method = {RequestMethod.GET})
-	public List<CityDTO> getAllCities() {
+	public List<CityDto> getAllCities() {
 		return cityService.findAllCities();
 	}
 	
 	@ApiOperation("Add new city")
 	@PostMapping({"/admin/cities"})
-	public ResponseEntity<Void> addCity(@RequestBody @Valid CityDTO city) throws AlreadyExistsException,NotFoundException  {
-		CityDTO newCityDTO = cityService.addCity(city);
+	public ResponseEntity<Void> addCity(@RequestBody @Valid CityDto city) throws AlreadyExistsException,NotFoundException  {
+		CityDto newCityDTO = cityService.addCity(city);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")

@@ -18,8 +18,8 @@ import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
 import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.IPersonService;
-import com.exemple.poc.client.dto.response.CityDTO;
-import com.exemple.poc.client.dto.response.PersonDTO;
+import com.exemple.poc.client.dto.response.CityDto;
+import com.exemple.poc.client.dto.response.PersonDto;
 
 import model.Address;
 
@@ -36,21 +36,21 @@ public class PersonService implements IPersonService {
 	private ICityDAO cityDAO;
 
 	@Override
-	public List<PersonDTO> findAllPersons() {
+	public List<PersonDto> findAllPersons() {
 		List<PersonBO> personBOs = personDAO.findAll();
-		List<PersonDTO> personDTOs = new ArrayList<PersonDTO>();
+		List<PersonDto> personDTOs = new ArrayList<PersonDto>();
 		personBOs.stream().forEach((c) -> personDTOs.add(ObjectMapper.toPersonDTO(c)));
 		return personDTOs;
 	}
 
 	@Override
-	public PersonDTO findPersonById(int id) {
+	public PersonDto findPersonById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersonDTO addPerson(PersonDTO person) throws AlreadyExistsException, NotFoundException {
+	public PersonDto addPerson(PersonDto person) throws AlreadyExistsException, NotFoundException {
 		
 		Optional<CountryBO> nationality1 = countryDAO.findByName(person.getNationality1());
 		if(!nationality1.isPresent()) {
@@ -81,18 +81,18 @@ public class PersonService implements IPersonService {
 		}
 		
 		PersonBO personBOAdded = (PersonBO)this.personDAO.save(ObjectMapper.toPersonBO(person,nationality1.get(),nationality2,birthplace.get()));
-		PersonDTO personDTO = ObjectMapper.toPersonDTO(personBOAdded);
+		PersonDto personDTO = ObjectMapper.toPersonDTO(personBOAdded);
 		return personDTO;
 	}
 
 	@Override
-	public PersonDTO updatePerson(PersonDTO person) throws AlreadyExistsException, NotFoundException {
+	public PersonDto updatePerson(PersonDto person) throws AlreadyExistsException, NotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersonDTO deletePerson(int id) throws AlreadyExistsException, NotFoundException {
+	public PersonDto deletePerson(int id) throws AlreadyExistsException, NotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

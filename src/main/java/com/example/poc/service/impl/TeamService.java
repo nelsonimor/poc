@@ -19,7 +19,7 @@ import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.ITeamService;
 import com.example.poc.util.ActionCode;
-import com.exemple.poc.client.dto.response.TeamDTO;
+import com.exemple.poc.client.dto.response.TeamDto;
 
 @Service
 public class TeamService implements ITeamService {
@@ -37,10 +37,10 @@ public class TeamService implements ITeamService {
 	private IEventCreatorService eventCreatorService;
 
 	@Override
-	public List<TeamDTO> findAllTeams() {
+	public List<TeamDto> findAllTeams() {
 		List<TeamBO> teamBOs = this.teamDAO.findAll();
 		
-		List<TeamDTO> teamDTOs = new ArrayList<TeamDTO>();
+		List<TeamDto> teamDTOs = new ArrayList<TeamDto>();
 		teamBOs.stream().forEach(c -> {
 			teamDTOs.add(ObjectMapper.toTeamDto(c));
 		});
@@ -48,7 +48,7 @@ public class TeamService implements ITeamService {
 	}
 
 	@Override
-	public TeamDTO addTeam(TeamDTO teamDto) throws AlreadyExistsException, NotFoundException {
+	public TeamDto addTeam(TeamDto teamDto) throws AlreadyExistsException, NotFoundException {
 		Optional<TeamBO> t = teamDAO.findByName(teamDto.getName());
 		if(t.isPresent()) {
 			eventCreatorService.createEventFailure(ActionCode.TEAM_ADD_FAILED_ALREADY_EXIST,new Object[] {teamDto.getName()});
@@ -113,7 +113,7 @@ public class TeamService implements ITeamService {
 		}
 
 		TeamBO teamBOAdded = (TeamBO)this.teamDAO.save(ObjectMapper.toTeamBO(teamDto,optCity1,optCity2,optCity3,optCountry));
-		TeamDTO teamDTO = ObjectMapper.toTeamDto(teamBOAdded);
+		TeamDto teamDTO = ObjectMapper.toTeamDto(teamBOAdded);
 		eventCreatorService.createEventSuccess(ActionCode.TEAM_ADD_SUCCESS,new Object[] {teamBOAdded.getName(),teamBOAdded.getId()});
 		return teamDTO;
 	}

@@ -27,8 +27,8 @@ import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.ITeamService;
 import com.example.poc.service.impl.CountryService;
 import com.example.poc.service.impl.TeamService;
-import com.exemple.poc.client.dto.response.CityDTO;
-import com.exemple.poc.client.dto.response.TeamDTO;
+import com.exemple.poc.client.dto.response.CityDto;
+import com.exemple.poc.client.dto.response.TeamDto;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -75,10 +75,10 @@ public class TeamServiceTests {
 	@DisplayName("Team : add city success")
     @Test
     void testAddTeamSuccess() {
-		TeamDTO teamDto = new TeamDTO();
+		TeamDto teamDto = new TeamDto();
 		teamDto.setName("Team France");
 		teamDto.setCountryName("France");
-		TeamDTO dto = teamService.addTeam(teamDto);
+		TeamDto dto = teamService.addTeam(teamDto);
 		Assertions.assertNotNull(dto);
     }
 	

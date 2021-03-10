@@ -21,8 +21,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.poc.exception.AlreadyExistsException;
 import com.example.poc.exception.NotFoundException;
 import com.example.poc.service.ICountryService;
-import com.exemple.poc.client.dto.response.ContinentDTO;
-import com.exemple.poc.client.dto.response.CountryDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
+import com.exemple.poc.client.dto.response.CountryDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,26 +38,26 @@ public class CountryController {
 
 	@ApiOperation("Retrieve all countries")
 	@RequestMapping(value = {"/view/countries"},method = {RequestMethod.GET})
-	public List<CountryDTO> getAllCountries() {
+	public List<CountryDto> getAllCountries() {
 		return countryService.findAllCountries();
 	}
 
 	@ApiOperation("Retrieve countries by name")
 	@GetMapping({"/view/countries/name/{name}"})
-	public CountryDTO getCountryByName(@PathVariable String name) {
+	public CountryDto getCountryByName(@PathVariable String name) {
 		return countryService.findByName(name);
 	}
 	
 	@ApiOperation("Retrieve countries by continent")
 	@GetMapping({"/view/countries/continent/{continentName}"})
-	public List<CountryDTO> getCountryByContinent(@PathVariable String continentName) {
+	public List<CountryDto> getCountryByContinent(@PathVariable String continentName) {
 		return countryService.findByContinent(continentName);
 	}
 
 	@ApiOperation("Add new country")
 	@PostMapping({"/admin/countries"})
-	public ResponseEntity<Void> addCountry(@RequestBody @Valid CountryDTO country) throws AlreadyExistsException,NotFoundException  {
-		CountryDTO newCountryDTO = countryService.addCountry(country);
+	public ResponseEntity<Void> addCountry(@RequestBody @Valid CountryDto country) throws AlreadyExistsException,NotFoundException  {
+		CountryDto newCountryDTO = countryService.addCountry(country);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
@@ -68,7 +68,7 @@ public class CountryController {
 	
 	@ApiOperation("Retrieve countries by name like")
 	@GetMapping({"/view/countries/likeName/{name}"})
-	public List<CountryDTO> getCountriesByLikeName(@PathVariable String name) {
+	public List<CountryDto> getCountriesByLikeName(@PathVariable String name) {
 		return countryService.getCountriesByLikeName(name);
 	}
 

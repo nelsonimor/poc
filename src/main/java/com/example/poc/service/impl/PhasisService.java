@@ -11,7 +11,7 @@ import com.example.poc.bo.PhasisBO;
 import com.example.poc.dao.IPhasisDAO;
 import com.example.poc.mapper.ObjectMapper;
 import com.example.poc.service.IPhasisService;
-import com.exemple.poc.client.dto.response.PhasisDTO;
+import com.exemple.poc.client.dto.response.PhasisDto;
 
 @Service
 public class PhasisService implements IPhasisService {
@@ -21,15 +21,15 @@ public class PhasisService implements IPhasisService {
 
 
 	@Override
-	public PhasisDTO findById(int id) {
+	public PhasisDto findById(int id) {
 		PhasisBO phasisBo = phasisDao.findById(id).get();
 		return ObjectMapper.toPhasisDto(phasisBo);
 	}
 
 	@Override
-	public List<PhasisDTO> findAll(){
+	public List<PhasisDto> findAll(){
 		List<PhasisBO> phasisBos = phasisDao.findAll();
-		List<PhasisDTO> phasisDtos = new ArrayList<PhasisDTO>();
+		List<PhasisDto> phasisDtos = new ArrayList<PhasisDto>();
 		for (Iterator iterator = phasisBos.iterator(); iterator.hasNext();) {
 			PhasisBO phasisBO = (PhasisBO) iterator.next();
 			phasisDtos.add(ObjectMapper.toPhasisDto(phasisBO));

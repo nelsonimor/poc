@@ -27,7 +27,7 @@ import com.example.poc.service.ICityService;
 import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.IGeolocationService;
 import com.example.poc.service.impl.CityService;
-import com.exemple.poc.client.dto.response.CityDTO;
+import com.exemple.poc.client.dto.response.CityDto;
 
 import model.Address;
 
@@ -87,13 +87,13 @@ public class CityServiceTests {
 	@DisplayName("City : add city without geolocation")
     @Test
     void testAddCityWithoutGeolocation() {
-		CityDTO cityDTO = new CityDTO();
+		CityDto cityDTO = new CityDto();
 		cityDTO.setCountryName("France");
 		cityDTO.setName("Dunkerque");
 		cityDTO.setLongitude(1d);
 		cityDTO.setLatitude(1d);
 		
-		CityDTO dto = cityService.addCity(cityDTO);
+		CityDto dto = cityService.addCity(cityDTO);
 		
 		Assertions.assertNotNull(dto);
     }
@@ -101,11 +101,11 @@ public class CityServiceTests {
 	@DisplayName("City : add city with geolocation")
     @Test
     void testAddCityWithGeolocation() {
-		CityDTO cityDTO = new CityDTO();
+		CityDto cityDTO = new CityDto();
 		cityDTO.setCountryName("France");
 		cityDTO.setName("Dunkerque");
 
-		CityDTO dto = cityService.addCity(cityDTO);
+		CityDto dto = cityService.addCity(cityDTO);
 
 		Assertions.assertEquals(dto.getLatitude(),2);
     }

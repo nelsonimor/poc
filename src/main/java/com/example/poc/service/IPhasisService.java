@@ -2,12 +2,12 @@ package com.example.poc.service;
 
 import java.util.List;
 
-import com.exemple.poc.client.dto.response.PhasisDTO;
+import com.exemple.poc.client.dto.response.PhasisDto;
 
 public interface IPhasisService {
 
-	PhasisDTO findById(int id);
+	PhasisDto findById(int id);
 	
-	List<PhasisDTO> findAll();
+	List<PhasisDto> findAll();
 
 }

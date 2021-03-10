@@ -24,7 +24,7 @@ import com.example.poc.dao.ICustomContinentDAO;
 import com.example.poc.exception.TechnicalExceptionHandler;
 import com.example.poc.exception.ValidationExceptionHandler;
 import com.example.poc.service.IContinentService;
-import com.exemple.poc.client.dto.response.ContinentDTO;
+import com.exemple.poc.client.dto.response.ContinentDto;
 
 
 
@@ -54,12 +54,12 @@ public class ContimentControllerTests {
 	public String name = "Asia";
 	public String code = "AS";
 
-	public final ContinentDTO mockContinent = new ContinentDTO(id,code,name);
+	public final ContinentDto mockContinent = new ContinentDto(id,code,name);
 
 
 	@Test
 	public void testFindAllContinents() throws Exception {
-		List<ContinentDTO> mockContinents = new ArrayList<ContinentDTO>();
+		List<ContinentDto> mockContinents = new ArrayList<ContinentDto>();
 		mockContinents.add(mockContinent);
 		Mockito.when(continentService.findAllContinents()).thenReturn(mockContinents);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Continents").accept(MediaType.APPLICATION_JSON);
@@ -97,7 +97,7 @@ public class ContimentControllerTests {
 
 	@Test
 	public void testFindContinentByRequest() throws Exception {
-		List<ContinentDTO> mockContinents = new ArrayList<ContinentDTO>();
+		List<ContinentDto> mockContinents = new ArrayList<ContinentDto>();
 		mockContinents.add(mockContinent);
 		Mockito.when(continentService.findByRequest(Mockito.any())).thenReturn(mockContinents);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/Continents/request?name="+name+"&code="+code+"&id="+id+"").accept(MediaType.APPLICATION_JSON);
@@ -108,7 +108,7 @@ public class ContimentControllerTests {
 
 	@Test
 	public void testAddContinent() throws Exception {
-		ContinentDTO continentDTOOutput = new ContinentDTO();
+		ContinentDto continentDTOOutput = new ContinentDto();
 		continentDTOOutput.setId(2);
 		continentDTOOutput.setName("Africa");
 		continentDTOOutput.setCode("AF");

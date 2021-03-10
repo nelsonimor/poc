@@ -18,8 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.poc.bo.PersonBO;
 import com.example.poc.service.IPersonService;
-import com.exemple.poc.client.dto.response.CityDTO;
-import com.exemple.poc.client.dto.response.PersonDTO;
+import com.exemple.poc.client.dto.response.CityDto;
+import com.exemple.poc.client.dto.response.PersonDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -32,18 +32,18 @@ public class PersonController {
 
 	@ApiOperation("Retrieve persons")
 	@RequestMapping(value = {"/view/persons"},method = {RequestMethod.GET})
-	public List<PersonDTO> findAllPersons() {
+	public List<PersonDto> findAllPersons() {
 		return personService.findAllPersons();
 	}
 
 	@GetMapping({"/view/persons/{id}"})
-	public PersonDTO findPersonById(@PathVariable int id) {
+	public PersonDto findPersonById(@PathVariable int id) {
 		return personService.findPersonById(id);
 	}
 
 	@PostMapping({"/admin/persons"})
-	public ResponseEntity<Void> addPerson(@RequestBody @Valid PersonDTO person) throws Exception {
-		PersonDTO newPersonDTO = personService.addPerson(person);
+	public ResponseEntity<Void> addPerson(@RequestBody @Valid PersonDto person) throws Exception {
+		PersonDto newPersonDTO = personService.addPerson(person);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")

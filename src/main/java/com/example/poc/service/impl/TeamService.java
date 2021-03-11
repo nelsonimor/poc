@@ -20,6 +20,7 @@ import com.example.poc.service.IEventCreatorService;
 import com.example.poc.service.ITeamService;
 import com.example.poc.util.ActionCode;
 import com.exemple.poc.client.dto.response.TeamDto;
+import com.exemple.poc.client.dto.response.TeamListDto;
 
 @Service
 public class TeamService implements ITeamService {
@@ -37,14 +38,9 @@ public class TeamService implements ITeamService {
 	private IEventCreatorService eventCreatorService;
 
 	@Override
-	public List<TeamDto> findAllTeams() {
+	public TeamListDto findAllTeams() {
 		List<TeamBO> teamBOs = this.teamDAO.findAll();
-		
-		List<TeamDto> teamDTOs = new ArrayList<TeamDto>();
-		teamBOs.stream().forEach(c -> {
-			teamDTOs.add(ObjectMapper.toTeamDto(c));
-		});
-		return teamDTOs;
+		return ObjectMapper.toTeamListDto(teamBOs);
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import com.example.poc.bo.PhasisParticipationBO;
 import com.example.poc.bo.RosterBO;
 import com.example.poc.bo.RosterItemBO;
 import com.example.poc.bo.TeamBO;
+import com.exemple.poc.client.dto.response.TeamListDto;
 import com.exemple.poc.client.dto.response.BoxlineDto;
 import com.exemple.poc.client.dto.response.CityDto;
 import com.exemple.poc.client.dto.response.CompetitionDto;
@@ -159,9 +160,21 @@ public class ObjectMapper {
 		TeamDto teamDto = new TeamDto();
 		teamDto.setId(t.getId());
 		teamDto.setName(t.getName());
-		if(t.getCity1()!=null)teamDto.setCityName1(t.getCity1().getName());
-		if(t.getCity2()!=null)teamDto.setCityName2(t.getCity2().getName());
-		if(t.getCity3()!=null)teamDto.setCityName3(t.getCity3().getName());
+		if(t.getCity1()!=null) {
+			teamDto.setCityName1(t.getCity1().getName());
+			teamDto.setCountryOfCity1(t.getCity1().getCountry().getName());
+		}
+		
+		if(t.getCity2()!=null) {
+			teamDto.setCityName2(t.getCity2().getName());
+			teamDto.setCountryOfCity2(t.getCity2().getCountry().getName());
+		}
+		
+		if(t.getCity3()!=null) {
+			teamDto.setCityName3(t.getCity3().getName());
+			teamDto.setCountryOfCity3(t.getCity3().getCountry().getName());
+		}
+		
 		if(t.getCountry()!=null)teamDto.setCountryName(t.getCountry().getName());
 		teamDto.setType(t.getType());
 		return teamDto;
@@ -317,6 +330,30 @@ public class ObjectMapper {
 		boxlineDto.setPoints(boxlineBo.getPoints());
 		boxlineDto.setTeamname(boxlineBo.getRoster().getTeam().getName());
 		return boxlineDto;
+	}
+
+	public static TeamListDto toTeamListDto(List<TeamBO> teamBOs) {
+		List<TeamDto> teamDTOs = new ArrayList<TeamDto>();
+		List<CountryDto> countries = new ArrayList<CountryDto>();
+		
+		for (Iterator iterator = teamBOs.iterator(); iterator.hasNext();) {
+			TeamBO teamBO = (TeamBO) iterator.next();
+			teamDTOs.add(ObjectMapper.toTeamDto(teamBO));
+			
+			CountryDto countryDto = toCountryDto(teamBO.getCity1().getCountry());
+			System.out.println("countryDto = "+countryDto+" for team : "+teamBO.getName());
+			boolean contains = countries.contains(countryDto);
+			if(!contains) {
+				countries.add(countryDto);
+			}
+		}
+
+		TeamListDto teamListDto = new TeamListDto();
+		teamListDto.setTeams(teamDTOs);
+		teamListDto.setCountries(countries);
+		teamListDto.setNbTeams(teamDTOs.size());
+		teamListDto.setDifferentCountries(countries.size());
+		return teamListDto;
 	}
 
 

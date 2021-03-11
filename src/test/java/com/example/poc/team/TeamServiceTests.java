@@ -69,7 +69,7 @@ public class TeamServiceTests {
 	@DisplayName("Teams : findAll")
     @Test
     void testFindAll() {
-        assertEquals(1, teamService.findAllTeams().size());
+        assertEquals(1, teamService.findAllTeams().getTeams().size());
     }
 	
 	@DisplayName("Team : add city success")

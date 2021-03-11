@@ -7,6 +7,7 @@ INSERT INTO t_country (name,codeIso2,codeIso3,nationality,fk_continent_id) VALUE
 
 INSERT INTO t_city (name,longitude,latitude,county,state,countycode,zip,fk_country_id) VALUES ('Villeurbanne',3.15945,50.72234,'Rhône','Auvergne-Rhône-Alpes',59,59220,(select id from t_country where name = 'France'));
 INSERT INTO t_city (name,longitude,latitude,county,state,countycode,zip,fk_country_id) VALUES ('Starsbourg',3.15945,50.72234,'Alsace','Haut Rhin',59,59220,(select id from t_country where name = 'France'));
+INSERT INTO t_city (name,longitude,latitude,county,state,countycode,zip,fk_country_id) VALUES ('Milano',3.15945,50.72234,'Lombardie','Lombardie',59,59220,(select id from t_country where name = 'Italy'));
 
 INSERT INTO t_arena (name,fk_city_id)  VALUES ('Astroballe',(select id from t_city where name = 'Villeurbanne'));
 INSERT INTO t_arena (name,fk_city_id)  VALUES ('Rhenus',(select id from t_city where name = 'Starsbourg'));
@@ -24,7 +25,8 @@ INSERT INTO t_person (lastname,firstname,birthdate,fk_city_id,fk_nationality1_id
 INSERT INTO t_person (lastname,firstname,birthdate,fk_city_id,fk_nationality1_id)  VALUES ('Morris','Moochie',CURRENT_TIMESTAMP,(select id from t_city where name = 'Starsbourg'),(select id from t_country where name = 'France'));
 
 INSERT INTO t_team(name,fk_team_city1_id) VALUES ('ASVEL',(select id from t_city where name = 'Villeurbanne'));
-INSERT INTO t_team(name,fk_team_city1_id) VALUES ('SIG',(select id from t_city where name = 'Strasbourg'));
+INSERT INTO t_team(name,fk_team_city1_id) VALUES ('SIG',(select id from t_city where name = 'Starsbourg'));
+INSERT INTO t_team(name,fk_team_city1_id) VALUES ('Olimpia Milano',(select id from t_city where name = 'Milano'));
 
 INSERT INTO t_competition(name,fk_continent_id) VALUES ('Euroleague',(select id from t_continent where name = 'Europe'));
 INSERT INTO t_competition(name,fk_country_id) VALUES ('Jeep Elite',(select id from t_country where name = 'France'));

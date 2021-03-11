@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.poc.service.ITeamService;
 import com.exemple.poc.client.dto.response.TeamDto;
+import com.exemple.poc.client.dto.response.TeamListDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +30,7 @@ public class TeamController {
 
 	@ApiOperation("Retrieve teams")
 	@RequestMapping(value = {"/view/teams"},method = {RequestMethod.GET})
-	public List<TeamDto> findAllTeams() {
+	public TeamListDto findAllTeams() {
 		return teamService.findAllTeams();
 	}
 

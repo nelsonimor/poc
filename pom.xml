@@ -28,9 +28,9 @@
 	<!-- 0.0.12 : add event manager -->
 	<!-- 0.0.13 : add team (get & add) -->
 	<!-- 0.0.14 : add competition and phasis management -->
+	<!-- 0.0.15 : add game / boxline and global recap -->
 	
-	
-	<version>0.0.14</version>
+	<version>0.0.15</version>
 	<name>poc</name>
 	<description>Demo project for Spring Boot</description>
 

@@ -301,6 +301,26 @@ public class ObjectMapper {
 		gameDto.setCompetitionId(g.getPhasisOrganization().getPhasis().getCompetition().getId());
 		gameDto.setCompetitionName(g.getPhasisOrganization().getPhasis().getCompetition().getName());
 		
+		gameDto.setLocalQt1score(g.getLocalQt1score());
+		gameDto.setLocalQt2score(g.getLocalQt2score());
+		gameDto.setLocalQt3score(g.getLocalQt3score());
+		gameDto.setLocalQt4score(g.getLocalQt4score());
+		gameDto.setLocalOt1score(g.getLocalOt1score());
+		gameDto.setLocalOt2score(g.getLocalOt2score());
+		gameDto.setLocalOt3score(g.getLocalOt3score());
+		gameDto.setLocalOt4score(g.getLocalOt4score());
+		gameDto.setLocalOt5score(g.getLocalOt5score());
+		
+		gameDto.setVisitQt1score(g.getVisitQt1score());
+		gameDto.setVisitQt2score(g.getVisitQt2score());
+		gameDto.setVisitQt3score(g.getVisitQt3score());
+		gameDto.setVisitQt4score(g.getVisitQt4score());
+		gameDto.setVisitOt1score(g.getVisitOt1score());
+		gameDto.setVisitOt2score(g.getVisitOt2score());
+		gameDto.setVisitOt3score(g.getVisitOt3score());
+		gameDto.setVisitOt4score(g.getVisitOt4score());
+		gameDto.setVisitOt5score(g.getVisitOt5score());
+		
 		if (withBoxscore) {
 			List<BoxlineDto> localBoxlines = new ArrayList<BoxlineDto>();
 			List<BoxlineDto> visitBoxlines = new ArrayList<BoxlineDto>();

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.poc.bo.BoxlineBO;
 import com.example.poc.bo.CityBO;
@@ -215,12 +216,16 @@ public class ObjectMapper {
 		return rosterItemDto;
 	}
 
-	public static CompetitionDto toCompetitionDto(CompetitionBO c) {
+	public static CompetitionDto toCompetitionDto(CompetitionBO c,boolean withDetail) {
 		CompetitionDto competitionDto = new CompetitionDto();
 		competitionDto.setId(c.getId());
 		competitionDto.setName(c.getName());
 		competitionDto.setCountry(c.getCountry()!=null?c.getCountry().getName():null);
 		competitionDto.setContient(c.getContinent()!=null?c.getContinent().getName():null);
+		competitionDto.setNbOrgnizations(c.getCompetitionOrganizations().size());
+		if(withDetail) {
+			competitionDto.setCompetitionOrganizations(c.getCompetitionOrganizations().stream().map(e -> toCompetitionOrganizationDto(e)).collect(Collectors.toList()));
+		}
 		return competitionDto;
 	}
 
@@ -342,13 +347,33 @@ public class ObjectMapper {
 		return gameDto;
 	}
 	
-	public static BoxlineDto toBoxlineDto(BoxlineBO boxlineBo) {
+	public static BoxlineDto toBoxlineDto(BoxlineBO b) {
 		BoxlineDto boxlineDto = new BoxlineDto();
-		boxlineDto.setId(boxlineBo.getId());
-		boxlineDto.setFirstname(boxlineBo.getPerson().getFirstname());
-		boxlineDto.setLastname(boxlineBo.getPerson().getLastname());
-		boxlineDto.setPoints(boxlineBo.getPoints());
-		boxlineDto.setTeamname(boxlineBo.getRoster().getTeam().getName());
+		boxlineDto.setId(b.getId());
+		boxlineDto.setFirstname(b.getPerson().getFirstname());
+		boxlineDto.setLastname(b.getPerson().getLastname());
+		boxlineDto.setPoints(b.getPoints());
+		boxlineDto.setTeamname(b.getRoster().getTeam().getName());
+		
+		
+		boxlineDto.setTotalShoot(b.getTotalShoot());
+		boxlineDto.setTotalShootAttempts(b.getTotalShootAttempts());
+		boxlineDto.setThreePointShoot(b.getThreePointShoot());
+		boxlineDto.setThreePointShootAttempts(b.getThreePointShootAttempts());
+		boxlineDto.setFreeThrow(b.getFreeThrow());
+		boxlineDto.setFreeThrowAttempts(b.getFreeThrowAttempts());
+		boxlineDto.setRebound(b.getRebound());
+		boxlineDto.setReboundOffensive(b.getReboundOffensive());
+		boxlineDto.setReboundDefensive(b.getReboundDefensive());
+		boxlineDto.setAssist(b.getAssist());
+		boxlineDto.setSteal(b.getSteal());
+		boxlineDto.setTurnover(b.getTurnover());
+		boxlineDto.setBlock(b.getBlock());
+		boxlineDto.setRanking(b.getRanking());
+		boxlineDto.setFoulsPersonal(b.getFoulsPersonal());
+		boxlineDto.setFoulsProvoked(b.getFoulsProvoked());
+		boxlineDto.setMinutes(b.getMinutes());
+		boxlineDto.setStarter(b.isStarter());
 		return boxlineDto;
 	}
 

@@ -1,5 +1,8 @@
 package com.example.poc.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,6 +32,9 @@ public class CompetitionBO {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_country_id",nullable = true)
 	private CountryBO country;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "competition")
+	private List<CompetitionOrganizationBO> competitionOrganizations = new ArrayList<CompetitionOrganizationBO>();
 
 	public int getId() {
 		return id;
@@ -59,6 +66,14 @@ public class CompetitionBO {
 
 	public void setCountry(CountryBO country) {
 		this.country = country;
+	}
+
+	public List<CompetitionOrganizationBO> getCompetitionOrganizations() {
+		return competitionOrganizations;
+	}
+
+	public void setCompetitionOrganizations(List<CompetitionOrganizationBO> competitionOrganizations) {
+		this.competitionOrganizations = competitionOrganizations;
 	}
 	
 	

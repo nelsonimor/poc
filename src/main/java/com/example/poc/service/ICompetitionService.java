@@ -8,4 +8,6 @@ public interface ICompetitionService {
 	
 	List<CompetitionDto> findAll();
 	
+	CompetitionDto findById(int id);
+	
 }

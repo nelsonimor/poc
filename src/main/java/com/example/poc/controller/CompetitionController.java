@@ -35,6 +35,11 @@ public class CompetitionController {
 		return competitionService.findAll();
 	}	
 	
+	@GetMapping({"/view/competitions/{competitionId}"})
+	public CompetitionDto getCompetition(@PathVariable int competitionId) {
+		return competitionService.findById(competitionId);
+	}
+	
 	@GetMapping({"/view/competitions/organization/{competitionId}"})
 	public List<CompetitionOrganizationDto> getCompetitionOrganizationByCompetition(@PathVariable int competitionId) {
 		return competitionOrganizationService.findByCompetition(competitionId);

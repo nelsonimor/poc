@@ -6,7 +6,7 @@ import com.exemple.poc.client.dto.response.BoxlineDto;
 
 public interface IBoxlineService {
 	
-	List<BoxlineDto> findByPointsDesc();
+	List<BoxlineDto> findByPointsDesc(int limit);
 	
 
 

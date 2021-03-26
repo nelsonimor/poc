@@ -38,9 +38,9 @@ public class StatController {
 	}
 	
 	@ApiOperation("Retrieve top points performance")
-	@RequestMapping(value = {"/view/stats/topPerformance/{stats}"},method = {RequestMethod.GET})
-	public List<BoxlineDto> getPersonalStats(@PathVariable String stats) {
-		return boxlineService.findByPointsDesc();
+	@RequestMapping(value = {"/view/stats/topPerformance/{stats}/{limit}"},method = {RequestMethod.GET})
+	public List<BoxlineDto> getPersonalStats(@PathVariable String stats,@PathVariable int limit) {
+		return boxlineService.findByPointsDesc(limit);
 	}
 	
 

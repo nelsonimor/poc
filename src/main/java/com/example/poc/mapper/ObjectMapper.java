@@ -374,6 +374,23 @@ public class ObjectMapper {
 		boxlineDto.setFoulsProvoked(b.getFoulsProvoked());
 		boxlineDto.setMinutes(b.getMinutes());
 		boxlineDto.setStarter(b.isStarter());
+		
+		boxlineDto.setGameCompetitionName(b.getGame().getPhasisOrganization().getPhasis().getCompetition().getName());
+		boxlineDto.setGameDate(b.getGame().getGamedate());
+		boxlineDto.setGameLocalTeam(b.getGame().getLocalRoster().getTeam().getName());
+		boxlineDto.setGameVisitorTeam(b.getGame().getVisitorRoster().getTeam().getName());
+		boxlineDto.setGamePhasisName(b.getGame().getPhasisOrganization().getPhasis().getName());
+		
+		int db = 0;
+		if(b.getPoints()>=10)db++;
+		if(b.getRebound()>=10)db++;
+		if(b.getAssist()>=10)db++;
+		if(b.getBlock()>=10)db++;
+		if(b.getSteal()>=10)db++;
+		
+		if(db>=2)boxlineDto.setDoubledouble(true);
+		if(db>=3)boxlineDto.setTripledouble(true);
+		
 		return boxlineDto;
 	}
 

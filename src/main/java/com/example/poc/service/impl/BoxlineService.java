@@ -21,8 +21,8 @@ public class BoxlineService implements IBoxlineService {
 	private IBoxlineDAO boxlineDAO;
 
 	@Override
-	public List<BoxlineDto> findByPointsDesc() {
-		Page<BoxlineBO> pageBoxlines = boxlineDAO.findAll(PageRequest.of(0, 10));
+	public List<BoxlineDto> findByPointsDesc(int limit) {
+		Page<BoxlineBO> pageBoxlines = boxlineDAO.findAll(PageRequest.of(0, limit));
 		return pageBoxlines.getContent().stream().map(e -> ObjectMapper.toBoxlineDto(e)).collect(Collectors.toList());
 	}
 	
